@@ -1,136 +1,29 @@
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml"><head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-            <title>Hotel & Restaurant</title>
-            <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
-            <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-            <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-            <script src="js/jsHelper.js"></script>
-            <!--<link rel="stylesheet" href="css/StyleSheet1.css" />-->
-            <script>
-//                function logout() {
-//                    $.get("logout.php");
-//                    return false;
-//                }
-            </script>
-            <style type="text/css">
-                @import url('css/main_css.css');
-            </style>
+<?php
+/*
+  1. Nastepuje autom wylogowanie jesli zmodyfikujemy adres dodajac np ? lub #
+  2. Nalezy zabezpieczyc kalendarze aby nie mozna bylo zaznaczyc daty wstecz
+  3.
+  4.
+  5.
+ */
+
+include('createHead.php');
+?>
+<html xmlns = "http://www.w3.org/1999/xhtml">
+    <head>
+        <?php createHead("Hotel & Restaurant"); ?>
     </head>
 
     <body>
         <?php
         error_reporting(E_ALL);
 
-        function showLoginForm() {
-            ?>
-            <form action = "index.php" method="POST">
-                Nr klienta: <input name="login" type="text" /> Hasło: <input name="haslo" type="password" />
-                <input type = "submit" class = "button gradient_gold" value = "Zaloguj się" />
-                <a href = "#" class = "button gradient_silver">Rejestracja</a>
-            </form>
-            <?php
-        }
 
-//        $uzytkownicy = array(1 =>
-//            array('login' => 'u1', 'haslo' => sha1('pp')),
-//            array('login' => 'nlight', 'haslo' => sha1('a')),
-//            array('login' => 'user3', 'haslo' => sha1('fff'))
-//        );
+        include('header.php');
 
-        function czyIstnieje($login, $haslo) {
-            echo 'haslo z forma ' . $haslo . "<br>";
-            $haslo = sha1(trim($haslo));
-            echo 'loginz forma ' . $login . "<br>";
-            echo 'haslo z forma ' . $haslo . "<br>";
-
-            $zapytanie = "select id,login, haslo from goscie where login='" . trim($login) . "'";
-            $polaczenie = oci_connect("hotel", "hotel", "localhost/XE");
-            $wyrazenie = oci_parse($polaczenie, $zapytanie);
-            if (!oci_execute($wyrazenie)) {
-                $err = oci_error($wyrazenie);
-                trigger_error('Zapytanie zakończyło się niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
-            }
-            $id = 0;
-            $loginZBazy = "a";
-            $hasloZBazy = "a";
-            while ($rekord = oci_fetch_array($wyrazenie, OCI_BOTH)) {
-                $id = $rekord['ID'];
-                $loginZBazy = $rekord['LOGIN'];
-                $hasloZBazy = $rekord['HASLO'];
-            }//bez tej petli nie dziala oci_num_rows
-            $rowsCount = oci_num_rows($wyrazenie);
-//            echo 'rows ' . $rowsCount . "<br>";
-//            echo 'id ' . $id . "<br>";
-//            echo 'loginzbazy ' . $loginZBazy . "<br>";
-//            echo 'haslozbazy ' . $hasloZBazy . "<br>";
-            oci_close($polaczenie);
-            if ($rowsCount == 1) {
-                if ($loginZBazy == $login && $hasloZBazy == $haslo) {
-                    return $id;
-                }
-            }
-            return false;
-        }
-
-        session_start();
-        if (!isset($_SESSION['uzytkownik'])) {
-            // Sesja się zaczyna, wiec inicjujemy użytkownika anonimowego
-            $_SESSION['uzytkownik'] = 0;
-        }
+        include('navigation.php');
         ?>
-        <div id="header">
-            <div class="wrap">
-                <!--                <div class="logo">
-                                    <a href="#">Logo Of Your Site!</a>
-                                </div>-->
-                <div id="loginButtons" style="width:150px;">
-
-                    <?php
-                    if ($_SESSION['uzytkownik'] > 0) {
-                        // Ktos jest zalogowany
-                        echo //'<a href="#">Moje rezerwacje</a>
-                        'Witaj ' . $_SESSION['login'] .
-                        '<a href = "logout.php" class = "button gradient_silver">Wyloguj</a>';
-                        //'<a href = "index.php" onclick="logout();" class = "button gradient_silver">Wyloguj</a>';
-                    } else {
-                        // Niezalogowany
-                        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                            if (($id = czyIstnieje($_POST['login'], $_POST['haslo'])) !== false) {
-                                // Logujemy uzytkownika, wpisal poprawne dane
-                                $_SESSION['uzytkownik'] = $id;
-                                $_SESSION['uzytkownik'] = $_POST['login'];
-                                //echo 'Witaj ' . $_POST['login'] . ' <a href = "#" class = "button gradient_silver">Wyloguj</a>';
-                                echo //'<a href="#">Moje rezerwacje</a>
-                                'Witaj ' . $_POST['login'] .
-                                '<a href = "logout.php" class = "button gradient_silver">Wyloguj</a>';
-                            } else {
-                                echo 'Podałeś nieprawidłowe login lub hasło';
-                                showLoginForm();
-                            }
-                        } else {
-                            showLoginForm();
-                        }
-                    }
-                    ?>
-                </div>
-                <!--<p>This site is amazing!</p>-->
-            </div>
-        </div>
-        <div id="navigation">
-            <div class="wrap">
-                <ul>
-                           <!--<img src="img/logo.png" style="color:#D5AA65;"/>-->
-                    <li><a href="#" style="margin-top: 10px;color:#D5AA65;font-weight: bold;font-size: 23px;">Hotel & Restaurant</a></li>
-                    <li><a href="#" >POKOJE</a></li>
-                    <li><a href="#" >RESTAURACJA</a></li>
-                    <li><a href="#" >KONFERENCJE</a></li>
-                    <li><a href="#" >OFERTA SPECJALNA</a></li>
-                    <li><a href="#" >PROMOCJE</a></li>
-                </ul>
-            </div>
-        </div>
-
 
         <div class="wrap">
             <div id="content" >
@@ -176,7 +69,7 @@
                     Podaj numer rezerwacji: <input id="reservation_id" type="text" />
                     <!--<a href="#" class="button gradient_silver">Anuluj</a>-->
                     <input type="submit" value="Anuluj" class="button gradient_silver" />
-                    <span class="error_text">Nie podałeś numeru rezerwacji</span>
+                    <span class="error_text no_display">Nie podałeś numeru rezerwacji</span>
                 </form>
             </div>
             <!--<div id="wrapper">-->
@@ -225,7 +118,7 @@
             </div>
             <div class="panel">
                 <h2 class="underline">SPRAWDŹ DOJAZD</h2>
-<!--<iframe src="http://www.map-generator.org/c367a213-aac7-4bcc-956d-60d9b2c9fdcf/iframe-map.aspx" scrolling="no" height="200px" width="280px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>                   <p>sadsadd</p>-->
+    <!--<iframe src="http://www.map-generator.org/c367a213-aac7-4bcc-956d-60d9b2c9fdcf/iframe-map.aspx" scrolling="no" height="200px" width="280px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>                   <p>sadsadd</p>-->
                 <div id="zumiMap" class="zumi_creator" style="width:280px; height:280px;"></div><script src="http://api.zumi.pl/maps/api" type="text/javascript" ></script><script type="text/javascript">(function() {
                         var marker, map = new zumi.maps.Map("zumiMap", {"apiKey": "DB85F8EBA7EB0780E0434628AE0AA164"});
                         map.afterLoad(function() {
@@ -243,17 +136,6 @@
             </div>
         </div>
         </div>
-        <!--</div>-->
-        <!--</div>-->
-
-        <div id="footer">
-            <div class="wrap">
-                <p><span class="bold">Hotel & Restaurant</span> <span class="splitter">&nbsp;|&nbsp;</span>
-                    <a href="#">Najczęściej zadawane pytania</a><span class="splitter">&nbsp;|&nbsp;</span>
-                    <a href="#">Regulamin rezerwacji</a><span class="splitter">&nbsp;|&nbsp;</span>
-                    <a href="#">Kontakt</a></p>
-                <p style="width: 200px;float: right">Webdesign: 8SOFT &copy; 2013</p>
-            </div>
-        </div>
+        <?php include('footer.php'); ?>
     </body>
 </html>

@@ -79,7 +79,12 @@ img{
     /*                    position:fixed;
                         bottom:0;*/
 }
-
+#footer_registration{
+    border-top: 1px solid #222 !important;
+    background:#fff;
+    text-align:left;
+    color:#888;
+}
 #footer a {
     color:#999;
 }
@@ -260,10 +265,13 @@ table td{
 #cancelReservationPanel{
     display: none;
 }
+.no_display{
+    display: none;
+}
 .error_text{
     color: red;
     /*text-shadow: 1px 0px 0px #999;*/
-    display: none;
+    /*display: none;*/
     background: #fff;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
