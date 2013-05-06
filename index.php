@@ -8,21 +8,31 @@
             <script src="js/jsHelper.js"></script>
             <!--<link rel="stylesheet" href="css/StyleSheet1.css" />-->
             <script>
-                function logout() {
-                    $.get("logout.php");
-                    return false;
-                }
+//                function logout() {
+//                    $.get("logout.php");
+//                    return false;
+//                }
             </script>
             <style type="text/css">
-                @import url('css/StyleSheet1.css');
+                @import url('css/main_css.css');
             </style>
     </head>
 
     <body>
         <?php
+
+        function showLoginForm() { ?>
+            <form action = "index.php" method="POST">
+                Nr klienta: <input name="login" type="text" /> Hasło: <input name="haslo" type="password" />
+                <input type = "submit" class = "button gradient_gold" value = "Zaloguj się" />
+                <a href = "#" class = "button gradient_silver">Rejestracja</a>
+            </form>
+            <?php
+        }
+
         $uzytkownicy = array(1 =>
             array('login' => 'u1', 'haslo' => sha1('pp')),
-            array('login' => 'user2', 'haslo' => sha1('ddd')),
+            array('login' => 'nlight', 'haslo' => sha1('a')),
             array('login' => 'user3', 'haslo' => sha1('fff'))
         );
 
@@ -39,7 +49,6 @@
             return false;
         }
 
-// end czyIstnieje();
         session_start();
         if (!isset($_SESSION['uzytkownik'])) {
             // Sesja się zaczyna, wiec inicjujemy użytkownika anonimowego
@@ -51,35 +60,32 @@
                 <!--                <div class="logo">
                                     <a href="#">Logo Of Your Site!</a>
                                 </div>-->
+                <div id="loginButtons" style="width:150px;">
 
-                <?php
-                if ($_SESSION['uzytkownik'] > 0) {
-                    // Ktos jest zalogowany
-                    echo '<a href="#">Moje rezerwacje</a>
-                        <div id="loginButtons" style="width:150px;">Witaj ' . $_SESSION['login'] .
-                    ' <a href = "index.php" onclick="logout();" class = "button gradient_silver">Wyloguj</a>';
-                    ///<a href="#" onclick="doSomething();">Click Me!</a>';
-                } else {
-                    // Niezalogowany
-                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                        if (($id = czyIstnieje($_POST['login'], $_POST['haslo'])) !== false) {
-                            // Logujemy uzytkownika, wpisal poprawne dane
-                            $_SESSION['uzytkownik'] = $id;
-                            $_SESSION['uzytkownik'] = $_POST['login'];
-                            echo 'Witaj ' . $_POST['login'] . ' <a href = "#" class = "button gradient_silver">Wyloguj</a>';
-                        } else {
-                            echo 'Podałeś nieprawidłowe login lub hasło';
-                        }
+                    <?php
+                    if ($_SESSION['uzytkownik'] > 0) {
+                        // Ktos jest zalogowany
+                        echo //'<a href="#">Moje rezerwacje</a>
+                        'Witaj ' . $_SESSION['login'] .
+                        '<a href = "logout.php" class = "button gradient_silver">Wyloguj</a>';
+                        //'<a href = "index.php" onclick="logout();" class = "button gradient_silver">Wyloguj</a>';
                     } else {
-                        ?>
-                        <div id="loginButtons" >
-                            <form action = "#" method="POST">
-                                Nr klienta: <input name="login" type="text" /> Hasło: <input name="haslo" type="password" />
-                                <!--<a href = "#" class = "button gradient_gold">Zaloguj się</a>-->
-                                <input type = "submit" class = "button gradient_gold" value = "Zaloguj się" />
-                                <a href = "#" class = "button gradient_silver">Rejestracja</a>
-                            </form>
-                            <?php
+                        // Niezalogowany
+                        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                            if (($id = czyIstnieje($_POST['login'], $_POST['haslo'])) !== false) {
+                                // Logujemy uzytkownika, wpisal poprawne dane
+                                $_SESSION['uzytkownik'] = $id;
+                                $_SESSION['uzytkownik'] = $_POST['login'];
+                                //echo 'Witaj ' . $_POST['login'] . ' <a href = "#" class = "button gradient_silver">Wyloguj</a>';
+                                echo //'<a href="#">Moje rezerwacje</a>
+                                'Witaj ' . $_POST['login'] .
+                                '<a href = "logout.php" class = "button gradient_silver">Wyloguj</a>';
+                            } else {
+                                echo 'Podałeś nieprawidłowe login lub hasło';
+                                showLoginForm();
+                            }
+                        } else {
+                            showLoginForm();
                         }
                     }
                     ?>
