@@ -20,8 +20,10 @@
 
     <body>
         <?php
+        error_reporting(E_ALL);
 
-        function showLoginForm() { ?>
+        function showLoginForm() {
+            ?>
             <form action = "index.php" method="POST">
                 Nr klienta: <input name="login" type="text" /> Hasło: <input name="haslo" type="password" />
                 <input type = "submit" class = "button gradient_gold" value = "Zaloguj się" />
@@ -30,22 +32,44 @@
             <?php
         }
 
-        $uzytkownicy = array(1 =>
-            array('login' => 'u1', 'haslo' => sha1('pp')),
-            array('login' => 'nlight', 'haslo' => sha1('a')),
-            array('login' => 'user3', 'haslo' => sha1('fff'))
-        );
+//        $uzytkownicy = array(1 =>
+//            array('login' => 'u1', 'haslo' => sha1('pp')),
+//            array('login' => 'nlight', 'haslo' => sha1('a')),
+//            array('login' => 'user3', 'haslo' => sha1('fff'))
+//        );
 
         function czyIstnieje($login, $haslo) {
-            global $uzytkownicy;
-            $haslo = sha1($haslo);
-            foreach ($uzytkownicy as $id => $dane) {
-                if ($dane['login'] == $login && $dane['haslo'] == $haslo) {
-                    // O, jest ktos taki - zwroc jego ID
+            echo 'haslo z forma ' . $haslo . "<br>";
+            $haslo = sha1(trim($haslo));
+            echo 'loginz forma ' . $login . "<br>";
+            echo 'haslo z forma ' . $haslo . "<br>";
+
+            $zapytanie = "select id,login, haslo from goscie where login='" . trim($login) . "'";
+            $polaczenie = oci_connect("hotel", "hotel", "localhost/XE");
+            $wyrazenie = oci_parse($polaczenie, $zapytanie);
+            if (!oci_execute($wyrazenie)) {
+                $err = oci_error($wyrazenie);
+                trigger_error('Zapytanie zakończyło się niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
+            }
+            $id = 0;
+            $loginZBazy = "a";
+            $hasloZBazy = "a";
+            while ($rekord = oci_fetch_array($wyrazenie, OCI_BOTH)) {
+                $id = $rekord['ID'];
+                $loginZBazy = $rekord['LOGIN'];
+                $hasloZBazy = $rekord['HASLO'];
+            }//bez tej petli nie dziala oci_num_rows
+            $rowsCount = oci_num_rows($wyrazenie);
+//            echo 'rows ' . $rowsCount . "<br>";
+//            echo 'id ' . $id . "<br>";
+//            echo 'loginzbazy ' . $loginZBazy . "<br>";
+//            echo 'haslozbazy ' . $hasloZBazy . "<br>";
+            oci_close($polaczenie);
+            if ($rowsCount == 1) {
+                if ($loginZBazy == $login && $hasloZBazy == $haslo) {
                     return $id;
                 }
             }
-            // Jeżeli doszedłeś a tutaj, to takiego użytkownika nie ma
             return false;
         }
 
