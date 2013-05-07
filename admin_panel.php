@@ -41,8 +41,11 @@
 
     <body>
         <?php
+        define('PATH', (__DIR__));
+        define('FILE', (__FILE__));
+        echo FILE;
 
-        use googlecharttools\model\Cell;
+use googlecharttools\model\Cell;
 use googlecharttools\model\Column;
 use googlecharttools\model\DataTable;
 use googlecharttools\model\Row;

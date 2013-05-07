@@ -17,17 +17,9 @@
 
         <div class="wrap">
             <div id="content" style="margin: 20px;">
-                <h2 class="underline">Formularz rejestracji</h2>
-                <form action="register_summary.php" method="POST">
-                    <table>
-                        <tr><td>Imię</td><td><input type="text" ></td></tr>
-                        <tr><td>Nazwisko</td><td><input type="text" ></td></tr>
-                        <tr><td>Login</td><td><input type="text" ></td></tr>
-                        <tr><td>Hasło</td><td><input type="password" ></td></tr>
-                        <tr><td>Nr karty (opcjonalnie)</td><td><input type="text"></td> </tr>
-                        <tr><td></td><td><input type="submit" value="Zarejestruj się" class="button gradient_gold"></td> </tr>
-                    </table>
-                </form>
+                <h2 class="underline">Rejestracja przebiegła pomyślnie</h2>
+
+                <p><a href="index.php">Przejdź do strony głównej</a></p>
             </div>
         </div>
         <div id="footer footer_registration">

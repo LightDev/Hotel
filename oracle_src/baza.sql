@@ -74,7 +74,7 @@ CREATE TABLE Goscie (
   karta_kredytowa CHAR(6)
 );
 
-INSERT INTO Goscie VALUES( 1,'Adam',      'Kot',  		'AdamK', 	 	'haslo1',   '123356');
+INSERT INTO Goscie VALUES( 1,'Adam',      'Kot',  		'AdamK', 	 	'cbac16609bc705ef460f6cc4d68555e532113c02',   '123356');
 INSERT INTO Goscie VALUES( 2,'Dariusz',   'Bach',   	'DariuszB',		'haslo2', 	'345678');
 INSERT INTO Goscie VALUES( 3,'Pawe³',     'Bilowski', 	'PawelB',		'haslo3', 	'987545');
 INSERT INTO Goscie VALUES( 4,'Arkadiusz', '£ebacki',  	'ArkadiuszL', 	'haslo4', 	'198722');
