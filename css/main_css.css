@@ -25,7 +25,7 @@ body {
 }
 #loginButtons{
     float:right;
-    width:600px;
+    width:620px;
     color: #DDD;
 }
 #navigation .wrap ul{
@@ -33,6 +33,7 @@ body {
 }
 #navigation .wrap li a {
     margin-top: 20px;
+    margin-bottom: 20px;
     float: left;
     font-weight: bold;
     color: #999;
@@ -65,7 +66,7 @@ img{
 }
 
 #content {
-    padding:15px 0;
+    /*padding:15px 0;*/
     clear:both;
     margin-bottom: 20px;
 }
@@ -269,6 +270,7 @@ table td{
     display: none;
 }
 .error_text{
+    float: left;
     color: red;
     /*text-shadow: 1px 0px 0px #999;*/
     /*display: none;*/
@@ -293,4 +295,86 @@ input.date_picker {
     background-size: 20px 20px;
     width: 120px;
     cursor: pointer;
+}
+
+.pager{
+    /*float: left;*/
+    /*width: 600px;*/
+    /*clear: both;*/
+    /*margin: 0 auto;*/
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.pager ul {font-size:11px;border:0;margin:0;padding:0;line-height:100%;display:inline;}
+
+.pager ul li{display:inline;}
+
+.pager ul a:link,ul a:visited{
+    border:solid 1px #8d8d8d;font-weight:bold;color:#666666;padding:5px 8px;text-decoration:none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;}
+
+.pager ul  a{font-weight:normal;}
+
+.pager ul a:hover{
+    border:solid 1px #888888;
+    background:#ebebeb;
+    background-image: -webkit-gradient(linear, center top, center bottom, color-stop(0%, #ffffff), color-stop(100%, #dbdbdb));
+    background-image: -webkit-linear-gradient(top, #ffffff 0%, #dbdbdb 100%);
+    background-image: -moz-linear-gradient(top, #ffffff 0%, #dbdbdb 100%);
+    background-image: -ms-linear-gradient(top, #ffffff 0%, #dbdbdb 100%);
+    background-image: -o-linear-gradient(top, #ffffff 0%, #dbdbdb 100%);
+    background-image: linear-gradient(to bottom, #ffffff 0%, #dbdbdb 100%);
+
+}
+
+.pager ul .selected a{
+    background:#8d8d8d;
+    color:#FFFFFF;
+    font-weight:bold;
+    border:1px solid #4d4d4d;
+
+    background: #7d7e7d; /* Old browsers */
+    background: -moz-linear-gradient(top,  #7d7e7d 0%, #919191 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7d7e7d), color-stop(100%,#919191)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #7d7e7d 0%,#919191 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #7d7e7d 0%,#919191 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #7d7e7d 0%,#919191 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #7d7e7d 0%,#919191 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#919191',GradientType=0 ); /* IE6-9 */
+
+    background: #2E6AB1;
+    background: -webkit-gradient(linear, left top, left bottom, from(#3297FD), to(#1F5D9B) ) ;
+    background: -moz-linear-gradient(-90deg, #3297FD, #1F5D9B);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#3297FD', endColorstr='#1F5D9B');
+
+}
+#preferences_menu{
+    float: left;
+    width: 150px;
+    margin-right: 20px;
+    padding: 7px;
+    padding-top: 0px;
+    background:#ebebeb;
+    background-image: -webkit-gradient(linear, center top, center bottom, color-stop(0%, #ffffff), color-stop(100%, #dbdbdb));
+    background-image: -webkit-linear-gradient(top, #ffffff 0%, #dbdbdb 100%);
+    background-image: -moz-linear-gradient(top, #ffffff 0%, #dbdbdb 100%);
+    background-image: -ms-linear-gradient(top, #ffffff 0%, #dbdbdb 100%);
+    background-image: -o-linear-gradient(top, #ffffff 0%, #dbdbdb 100%);
+    background-image: linear-gradient(to bottom, #ffffff 0%, #dbdbdb 100%);
+
+    border: 1px solid #eee;
+    webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+
+}
+#preferences_menu h2 {
+    margin-bottom: 5px;
+}
+#reservation_result{
+    float: left;
+    width: 700px;
 }

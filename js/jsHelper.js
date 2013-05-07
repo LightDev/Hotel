@@ -15,7 +15,7 @@ $(document).ready(function() {
                 'Lip', 'Sie', 'Wrz', 'Pa', 'Lis', 'Gru'],
             dayNames: ['Niedziela', 'Poniedzialek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'],
             //dayNamesShort: ['Nie', 'Pn', 'Wt', 'Śr', 'Czw', 'Pt', 'So'], it doesnt work
-            dayNamesMin: ['Nd', 'Pon', 'Wto', 'Śro', 'Czw', 'Pt', 'Sob'],
+            dayNamesMin: ['Nd', 'Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'Sb'],
             //beforeShowDay: $.datepicker.noWeekends, // Disable selection of weekends
             firstDay: 1 // Start with Monday
                     //showOn: "button",
@@ -43,7 +43,7 @@ $(document).ready(function() {
                 'Lip', 'Sie', 'Wrz', 'Pa', 'Lis', 'Gru'],
             dayNames: ['Niedziela', 'Poniedzialek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'],
             //dayNamesShort: ['Nie', 'Pn', 'Wt', 'Śr', 'Czw', 'Pt', 'So'], it doesnt work
-            dayNamesMin: ['Nd', 'Pon', 'Wto', 'Śro', 'Czw', 'Pt', 'Sob'],
+            dayNamesMin: ['Nd', 'Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'Sb'],
             //beforeShowDay: $.datepicker.noWeekends, // Disable selection of weekends
             //beforeShowDay: disabledDays, // Disable selection of weekends
             firstDay: 1 // Start with Monday

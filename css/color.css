@@ -19,7 +19,7 @@
     background: -ms-linear-gradient(top,  #fcf5b3 0%,#efcf00 100%); /* IE10+ */
     background: linear-gradient(to bottom,  #fcf5b3 0%,#efcf00 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcf5b3', endColorstr='#efcf00',GradientType=0 ); /* IE6-9 */
-    border: 1px solid #FFD400;
+    /*border: 1px solid #FFD400;*/
 
 }
 .gradient_silver{

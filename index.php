@@ -1,11 +1,11 @@
 <!doctype html>
 <?php
 /*
-  1. Nastepuje autom wylogowanie jesli zmodyfikujemy adres dodajac np ? lub #
-  2. Nalezy zabezpieczyc kalendarze aby nie mozna bylo zaznaczyc daty wstecz
-  3.
-  4.
-  5.
+  1. DONE Nastepuje autom wylogowanie jesli zmodyfikujemy adres dodajac np ? lub #
+  2.      Nalezy zabezpieczyc kalendarze aby nie mozna bylo zaznaczyc daty wstecz
+  3.      Procedura registerUser w pakiecie hotel
+  4.      Filtrowanie wyboru pokoju
+  5.      Zabezpieczyc anulowanie rezerwacji
  */
 
 include('createHead.php');
@@ -18,21 +18,18 @@ include('createHead.php');
     <body>
         <?php
         error_reporting(E_ALL);
-
-
         include('header.php');
-
         include('navigation.php');
         ?>
 
         <div class="wrap">
             <div id="content" >
-                <form action="reservation_results.php">
+                <form action="reservation_results.php" method="POST">
                     <div id="reservationPanel" >
-                        <div class="panel " style="width: 200px;" >
+                        <div class="panel" style="width: 200px;" >
                             <h2 class="underline">Wybierz liczbę pokoi</h2>
                             <p >
-                                <select class="aligncenter" name="jezyk" size="1" >
+                                <select class="aligncenter" name="roomCount" size="1" >
                                     <option>1 pokój</option>
                                     <option>2 pokoje</option>
                                     <option>3 pokoje</option>
@@ -44,7 +41,8 @@ include('createHead.php');
                         </div>
                         <div class="panel" style="width: 400px;">
                             <h2 class="underline">Podaj czas pobytu</h2>
-                            <p>Od:&nbsp;<input type="text" id="dateFrom" class="date_picker" />&nbsp;&nbsp;&nbsp;Do:&nbsp; <input type="text" id="dateTo" class="date_picker" /></p>
+                            <p>Od:&nbsp;<input type="text" name="dateFrom" id="dateFrom" class="date_picker" />&nbsp;&nbsp;&nbsp;Do:&nbsp; 
+                                <input type="text" name="dateTo" id="dateTo" class="date_picker" /></p>
                             <p class="circle">2</p>
                         </div>
 
