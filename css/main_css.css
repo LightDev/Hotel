@@ -1,0 +1,316 @@
+@import url('reset.css');
+/*@import url('/css/typography.css');
+@import url('layout.css');*/
+@import url('color.css');
+@import url('table.css');
+@import url('button.css');
+
+body {
+    font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    background: #fff;
+}
+
+.wrap {
+    margin:0 auto;
+    width:900px;
+}
+
+#header, #footer {
+    float:left;
+    /*padding:15px 0;*/
+    min-width:100%;
+}
+
+#header {
+    background: #222;
+}
+#loginButtons{
+    float:right;
+    width:620px;
+    color: #DDD;
+}
+#navigation .wrap ul{
+    /*margin-top: 20px;*/
+}
+#navigation .wrap li a {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    float: left;
+    font-weight: bold;
+    color: #999;
+    font-size: 14px;
+    margin-right: 40px;
+    text-decoration: none;
+}
+img{
+    margin-top: -50px;
+    -webkit-border-bottom-right-radius: 7px;
+    -webkit-border-bottom-left-radius: 7px;
+    -moz-border-radius-bottomright: 7px;
+    -moz-border-radius-bottomleft: 7px;
+    border-bottom-right-radius: 7px;
+    border-bottom-left-radius: 7px;
+}
+#navigation .wrap a:hover {
+    color: #330000;
+}
+
+#navigation .logo {
+    float:left;
+    width:150px;
+}
+
+#navigation p {
+    float:right;
+    width:400px;
+    margin:0;
+}
+
+#content {
+    /*padding:15px 0;*/
+    clear:both;
+    margin-bottom: 20px;
+}
+
+#footer {
+    background:#222;
+    text-align:left;
+    color:#fff;
+
+    /*To anchor to bottom of page uncomment the following lines:*/
+    /*                    position:fixed;
+                        bottom:0;*/
+}
+#footer_registration{
+    border-top: 1px solid #222 !important;
+    background:#fff;
+    text-align:left;
+    color:#888;
+}
+#footer a {
+    color:#999;
+}
+#footer a:hover {
+    color:#D5AA65;
+}
+
+#reservationPanel{
+    float: left;
+    padding: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid #ed9017;
+    /*border: 1px solid rgba(0, 0, 0, 0.3);*/
+
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+    background: #FFFFD9 !important;
+}
+.panel{
+    width: 280px;
+    float: left;
+    padding: 8px;
+    /*margin: 0 auto;*/
+    /*text-align: center;*/
+    /*background: #ddd;*/
+    /*border:  1px solid #DCDCDC;*/
+}
+p.circle{
+    /*text-align: center ;*/
+    margin:0 auto;
+
+}
+.circle {
+    color: #330000;
+    font-weight: bold;
+    text-align: center;
+    /*line-height: px;*/
+    font-size: 16px;
+    padding: 4px;
+    border: 1px solid #888;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    /* width and height can be anything, as long as they're equal */
+    background: #DEB887;
+    /*background: #D2B48C;*/
+    /*                    background-image: -moz-radial-gradient(45px 45px 45deg, circle cover, yellow 0%, orange 100%, red 95%);
+                        background-image: -webkit-radial-gradient(45px 45px, circle cover, yellow, orange);
+                        background-image: radial-gradient(45px 45px 45deg, circle cover, yellow 0%, orange 100%, red 95%);*/
+    border-radius:25px;
+
+}
+.panel h2{
+    margin-bottom: 10px;
+
+}
+.underline{
+    border-bottom:   1px solid #DCDCDC;
+    padding: 5px;
+}
+
+.bold{
+    font-weight: bold;
+}
+.padding20{
+    padding: 20px;
+}
+.buttonSpecialPadding{
+    padding: 10px 15px ;
+}
+.extraBottomMargin{
+    margin-bottom: 10px;
+}
+
+
+
+
+.center{
+    margin: 0 auto;
+}
+#otherOptionsPanel,#cancelReservationPanel {
+    /*float: left;*/
+    /*margin-top: -7px;*/
+    background: #111;
+    clear: both;
+    border: 1px solid #999;
+    border-top: none;
+    /*border-top: none;*/
+    -webkit-border-bottom-right-radius: 7px;
+    -webkit-border-bottom-left-radius: 7px;
+    -moz-border-radius-bottomright: 7px;
+    -moz-border-radius-bottomleft: 7px;
+    border-bottom-right-radius: 7px;
+    border-bottom-left-radius: 7px;
+    -moz-border-radius: .3em;
+    border-radius: .3em;
+    padding: 7px 10px;
+    color:#fff;
+    /*font-weight: bold;*/
+}
+#otherOptionsPanel a{
+    margin-right: 10px;
+}
+#otherOptionsPanel a:hover{
+    color:#D5AA65;
+}
+table td{
+    padding: 5px;
+    /*                    margin-bottom: 3px;*/
+}
+#cancelReservationPanel{
+    display: none;
+}
+.no_display{
+    display: none;
+}
+.error_text{
+    float: left;
+    color: red;
+    /*text-shadow: 1px 0px 0px #999;*/
+    /*display: none;*/
+    background: #fff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+/*button.date-picker-button-hidden:hover
+{
+    cursor: pointer;
+}*/
+
+input.date_picker {
+    text-align: center;
+    background-image: url("../img/DatePickerIcon.png");
+    background-position: right center;
+    background-repeat: no-repeat;
+    padding-right: 18px;
+    background-size: 20px 20px;
+    width: 120px;
+    cursor: pointer;
+}
+
+.pager{
+    /*float: left;*/
+    /*width: 600px;*/
+    /*clear: both;*/
+    /*margin: 0 auto;*/
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.pager ul {font-size:11px;border:0;margin:0;padding:0;line-height:100%;display:inline;}
+
+.pager ul li{display:inline;}
+
+.pager ul a:link,ul a:visited{
+    border:solid 1px #8d8d8d;font-weight:bold;color:#666666;padding:5px 8px;text-decoration:none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;}
+
+.pager ul  a{font-weight:normal;}
+
+.pager ul a:hover{
+    border:solid 1px #888888;
+    background:#ebebeb;
+    background-image: -webkit-gradient(linear, center top, center bottom, color-stop(0%, #ffffff), color-stop(100%, #dbdbdb));
+    background-image: -webkit-linear-gradient(top, #ffffff 0%, #dbdbdb 100%);
+    background-image: -moz-linear-gradient(top, #ffffff 0%, #dbdbdb 100%);
+    background-image: -ms-linear-gradient(top, #ffffff 0%, #dbdbdb 100%);
+    background-image: -o-linear-gradient(top, #ffffff 0%, #dbdbdb 100%);
+    background-image: linear-gradient(to bottom, #ffffff 0%, #dbdbdb 100%);
+
+}
+
+.pager ul .selected a{
+    background:#8d8d8d;
+    color:#FFFFFF;
+    font-weight:bold;
+    border:1px solid #4d4d4d;
+
+    background: #7d7e7d; /* Old browsers */
+    background: -moz-linear-gradient(top,  #7d7e7d 0%, #919191 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7d7e7d), color-stop(100%,#919191)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #7d7e7d 0%,#919191 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #7d7e7d 0%,#919191 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #7d7e7d 0%,#919191 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #7d7e7d 0%,#919191 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#919191',GradientType=0 ); /* IE6-9 */
+
+    background: #2E6AB1;
+    background: -webkit-gradient(linear, left top, left bottom, from(#3297FD), to(#1F5D9B) ) ;
+    background: -moz-linear-gradient(-90deg, #3297FD, #1F5D9B);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#3297FD', endColorstr='#1F5D9B');
+
+}
+#preferences_menu{
+    float: left;
+    width: 150px;
+    margin-right: 20px;
+    padding: 7px;
+    padding-top: 0px;
+    background:#ebebeb;
+    background-image: -webkit-gradient(linear, center top, center bottom, color-stop(0%, #ffffff), color-stop(100%, #dbdbdb));
+    background-image: -webkit-linear-gradient(top, #ffffff 0%, #dbdbdb 100%);
+    background-image: -moz-linear-gradient(top, #ffffff 0%, #dbdbdb 100%);
+    background-image: -ms-linear-gradient(top, #ffffff 0%, #dbdbdb 100%);
+    background-image: -o-linear-gradient(top, #ffffff 0%, #dbdbdb 100%);
+    background-image: linear-gradient(to bottom, #ffffff 0%, #dbdbdb 100%);
+
+    border: 1px solid #eee;
+    webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+
+}
+#preferences_menu h2 {
+    margin-bottom: 5px;
+}
+#reservation_result{
+    float: left;
+    width: 700px;
+}
