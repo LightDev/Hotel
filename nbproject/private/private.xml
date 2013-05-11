@@ -6,8 +6,10 @@
             <file>file:/C:/xampp/htdocs/Hotel/reservation_results.php</file>
             <file>file:/C:/xampp/htdocs/Hotel/index.php</file>
             <file>file:/C:/xampp/htdocs/Hotel/js/jsHelper.js</file>
-            <file>file:/C:/xampp/htdocs/Hotel/css/main_css.css</file>
-            <file>file:/C:/xampp/htdocs/Hotel/logout.php</file>
+            <file>file:/C:/xampp/htdocs/Hotel/backend/guest_list.php</file>
+            <file>file:/C:/xampp/htdocs/Hotel/PHP_Helper.php</file>
+            <file>file:/C:/xampp/htdocs/Hotel/reservation_summary.php</file>
+            <file>file:/C:/xampp/htdocs/Hotel/backend/login_panel.php</file>
         </group>
     </open-files>
 </project-private>

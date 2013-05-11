@@ -48,9 +48,9 @@ function czyIstnieje($login, $haslo) {
 ?>
 <div id="header">
     <div class="wrap">
-        <!--        <div class="logo">
-                    <a href="#">Logo Of Your Site!</a>
-                </div>-->
+        <div class="logo">
+            <a href="#">Logo Of Your Site!</a>
+        </div>
 
         <?php
         if (!isset($_SESSION['inicjuj'])) {
