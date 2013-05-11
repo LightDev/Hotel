@@ -42,11 +42,12 @@ abstract class User {
     }
 
     public function setPassword($password) {
-        $passwordLenght = strlen($this->_password);
+        $passwordLenght = strlen($password);
         if ($passwordLenght >= 6 && $passwordLenght <= 40) {
             $this->_password = $password;
         } else {
-            throw new Exception("<p>Hasło musi posiadać od 8 do 40 znaków.</p>");
+            echo '<p>Hasło musi posiadać od 6 do 40 znaków.</p>';
+            //throw new Exception("<p>Hasło musi posiadać od 8 do 40 znaków.</p>");
         }
     }
 

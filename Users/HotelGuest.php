@@ -10,9 +10,6 @@ class HotelGuest extends User {
     }
 
     public function addUser() {
-        //parent::addUser();
-        //$conn = PHP_Helper::getConnection();
-        //$isLoginExist = false;
         $Name = $this->getName();
         $Surname = $this->getSurname();
         $Login = $this->getLogin();
@@ -33,23 +30,25 @@ class HotelGuest extends User {
         else
             $commit = oci_rollback($this->_this_conn);
 
-//        if (!oci_execute($expr, OCI_DEFAULT)) {
-//            $err = oci_error($expr);
-//            trigger_error('Zapytanie zakończyło się niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
-//        }
-//        oci_commit($conn); // commit everything at once
-
-        echo $isLoginExist;
+        //echo $isLoginExist;
         oci_free_statement($expr);
         return $isLoginExist;
     }
 
     public function cancelReservation($id) {
-        
+        $expr = oci_parse($this->_this_conn, "declare isReservationIdExist NUMBER:=0; begin HOTEL.CANCELRESERVATION(:id); end;");
+        oci_bind_by_name($expr, ":isReservationIdExist", $isReservationIdExist);
+        oci_bind_by_name($expr, ":id", $id, -1);
+        $check = oci_execute($expr);
+        if ($check == true)
+            $commit = oci_commit($this->_this_conn);
+        else
+            $commit = oci_rollback($this->_this_conn);
+        oci_free_statement($expr);
+        return $isReservationIdExist;
     }
 
     public function __destruct() {
-        echo '<h2>Destroying user now...<h2>';
         oci_close($this->_this_conn);
     }
 
