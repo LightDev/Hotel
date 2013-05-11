@@ -35,8 +35,16 @@ class HotelGuest extends User {
         return $isLoginExist;
     }
 
-    public function cancelReservation($id) {
-        $expr = oci_parse($this->_this_conn, "declare isReservationIdExist NUMBER:=0; begin HOTEL.CANCELRESERVATION(:id); end;");
+    public function bookOnline() {
+        
+    }
+
+    public function modifyBooking() {
+        
+    }
+
+    public function cancelBooking($id) {
+        $expr = oci_parse($this->_this_conn, "declare isReservationIdExist NUMBER:=0; begin HOTEL.CANCELBOOKING(:id); end;");
         oci_bind_by_name($expr, ":isReservationIdExist", $isReservationIdExist);
         oci_bind_by_name($expr, ":id", $id, -1);
         $check = oci_execute($expr);

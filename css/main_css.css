@@ -205,9 +205,8 @@ table td{
 .no_display{
     display: none;
 }
-.error_text{
+.error_text,.ok_text{
     float: left;
-    color: red;
     /*text-shadow: 1px 0px 0px #999;*/
     /*display: none;*/
     background: #fff;
@@ -215,6 +214,14 @@ table td{
     -moz-border-radius: 5px;
     border-radius: 5px;
     padding: 5px;
+    border: 1px solid #ccc;
+}
+.error_text{
+    color: red;
+
+}
+.ok_text{
+    color: #00cc99;
 }
 
 /*button.date-picker-button-hidden:hover
