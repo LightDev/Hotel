@@ -1,20 +1,15 @@
 <html xmlns = "http://www.w3.org/1999/xhtml">
     <head>
-
         <?php
         include('createHead.php');
         createHead("H&R - Rejestracja");
         ?>
     </head>
-
     <body>
         <?php
         error_reporting(E_ALL);
-        //include('header.php');
-
         include('navigation.php');
         ?>
-
         <div class="wrap">
             <div id="content" style="margin: 20px;">
                 <?php
@@ -24,10 +19,10 @@
                         <h2 class="underline">Formularz rejestracji</h2>
                         <form action="register.php" method="POST">
                             <table>
-                                <tr><td>Imię</td><td><input type="text" name="imie" ></td></tr>
-                                <tr><td>Nazwisko</td><td><input type="text" name="nazwisko" ></td></tr>
-                                <tr><td>Login</td><td><input type="text" name="login"></td></tr>
-                                <tr><td>Hasło</td><td><input type="password" name="haslo"></td></tr>
+                                <tr><td>Imię (*)</td><td><input type="text" name="imie" ></td></tr>
+                                <tr><td>Nazwisko (*)</td><td><input type="text" name="nazwisko" ></td></tr>
+                                <tr><td>Login (*)</td><td><input type="text" name="login"></td></tr>
+                                <tr><td>Hasło (*)</td><td><input type="password" name="haslo"></td></tr>
                                 <tr><td>Nr karty (opcjonalnie)</td><td><input type="text" name="nr_karty"></td> </tr>
                                 <tr><td></td><td><input type="submit" class="button gradient_gold"></td> </tr>
                             </table>
@@ -36,7 +31,6 @@
                 <?php } ?>
                 <?php
                 include('PHP_Helper.php');
-
                 include('Users/User.php');
                 include('Users/HotelGuest.php');
 
@@ -46,16 +40,17 @@
                         !isset($_POST['haslo']))
                     showRegistrationForm();
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                    if (!isset($_POST['imie']) ||
-                            !isset($_POST['nazwisko']) ||
-                            !isset($_POST['login']) ||
-                            !isset($_POST['haslo'])) {
+                    if (empty($_POST['imie']) ||
+                            empty($_POST['nazwisko']) ||
+                            empty($_POST['login']) ||
+                            empty($_POST['haslo'])) {
                         echo '<p class = "error_text" style = "border: 1px solid #ccc;">Uzupełnij niezbędne pola.</p>';
+                        showRegistrationForm();
                     } else {
                         $imie = $_POST['imie'];
                         $nazwisko = $_POST['nazwisko'];
                         $login = $_POST['login'];
-                        echo $login;
+                        //echo $login;
                         //$haslo = sha1($_POST['haslo']);
                         $haslo = $_POST['haslo'];
                         $nr_karty = $_POST['nr_karty'];

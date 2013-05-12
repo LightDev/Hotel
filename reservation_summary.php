@@ -33,6 +33,7 @@
                 <!--<h2 class="underline">Dostępne pokoje</h2>-->
                 <?php
                 $roomId = $_GET['roomId'];
+                $_POST['roomId'] = $_GET['roomId'];
                 //$dateTo = $_POST['dateToHidden'];
                 //echo $_GET['str_output'];
                 //$zapytanie = "SELECT * FROM pokoje";
@@ -46,16 +47,21 @@
                 }
                 while ($rekord = oci_fetch_array($wyrazenie, OCI_ASSOC)) {
                     echo '<h2 class="underline">' . $rekord['NUMER'] . '</h2>';
+                    echo '<form method="POST" action= "reservation_after_summary.php">';
                     echo '<table>';
                     echo '<tr><td>Ilość osób: ' . $rekord['ILU_OSOBOWY'] . '</td>';
                     echo ($rekord['LAZIENKA'] == 'Y') ? '<td>Łazienka: ' . 'Tak' : 'Łazienka: ' . 'Nie' . '</td>';
                     echo '<td>CENA: ' . $rekord['CENA'] . ' zł' . '</td>';
-                    if ($_SESSION['uzytkownik'] > 0) {
-                        echo '<td><a href = "reservation_after_summary.php" class = "button gradient_gold">Dokonaj rezerwacji</a></td>';
+                    if ($_SESSION['user'] > 0) {
+                        echo '<td><input type="submit" class = "button gradient_gold" value="Dokonaj rezerwacji" />                            
+                            <input type="hidden" name="roomId" id="roomId" value="' . $roomId . '"  >
+                            <input type="hidden" name="dateFromHidden" id="dateFromHidden" value="' . $_POST['dateFromHidden'] . '"  >
+                                    <input type="hidden" name="dateToHidden" id="dateToHidden" value="' . $_POST['dateToHidden'] . '"  ></td>';
                     } else {
                         echo '<td><a href = "register.php" class = "button gradient_gold">Dokonaj rezerwacji</a></td>';
                     }
                     echo '</tr></table>';
+                    echo '</form>';
                     echo '<h2 class="underline"></h2>';
                 }//bez tej petli nie dziala oci_num_rows
                 oci_close($polaczenie);

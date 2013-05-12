@@ -27,18 +27,22 @@
                 echo '<tr><td>Ilość osób: ' . $rekord['ILU_OSOBOWY'] . '</td>';
                 echo ($rekord['LAZIENKA'] == 'Y') ? '<td>Łazienka: ' . 'Tak' : 'Łazienka: ' . 'Nie' . '</td>';
                 echo '<td>CENA: ' . $rekord['CENA'] . ' zł' . '</td>';
-//                if ($_SESSION['uzytkownik'] > 0) {
+//                if ($_SESSION['user'] > 0) {
 //                    echo '<td><a href = "reservation_summary.php?roomId=' . $rekord['NUMER'] . '" class = "button gradient_gold">Dokonaj rezerwacji</a></td>';
 //                } else {
 //                    echo '<td><a href = "register.php" class = "button gradient_gold">Dokonaj rezerwacji</a></td>';
 //                }
                 echo '</tr></table>';
-                if ($_SESSION['uzytkownik'] > 0) {
+                if ($_SESSION['user'] > 0) {
                     echo '<div id="" style="width:200px;float:right;">
-                            <a href = "reservation_summary.php?roomId=' . $rekord['NUMER'] . '" class = "button gradient_gold">Dokonaj rezerwacji</a>
+                        <form method="POST" action= "reservation_summary.php?roomId=' . $rekord['NUMER'] . '">
+                            <input type="submit" class = "button gradient_gold" value="Sprawdź szczegóły" />
+                            <input type="hidden" name="dateFromHidden" id="dateFromHidden" value="' . $_POST['dateFromHidden'] . '"  >
+                                    <input type="hidden" name="dateToHidden" id="dateToHidden" value="' . $_POST['dateToHidden'] . '"  >
+                                        </form>
                           </div>';
                 } else {
-                    echo '<a href = "register.php" class = "button gradient_gold">Dokonaj rezerwacji</a>';
+                    echo '<a href = "loginOrRegister.php" class = "button gradient_gold">Sprawdź szczegóły</a>';
                 }
                 echo '</div>';
                 //echo '<h2 class="underline"></h2>';

@@ -27,29 +27,10 @@
         //$haslo = sha1($_POST['haslo']);
         $haslo = $_POST['haslo'];
         $nr_karty = $_POST['nr_karty'];
+        //$hotelGuest = new HotelGuest($imie, $nazwisko, $login, $haslo, $nr_karty);
         $hotelGuest = new HotelGuest($imie, $nazwisko, $login, $haslo, $nr_karty);
+        //$hotelGuest = HotelGuest::HotelGuestSimple($imie, $nazwisko, $login, $haslo, $nr_karty);
         $isLoginExist = $hotelGuest->addUser();
-        //$isLoginExist = 0;
-        //echo $isLoginExist;
-//        echo $isLoginExist;
-//        $boolarray = Array(false => 'false', true => 'true');
-//        echo $boolarray[$isLoginExist];
-//        $expr = oci_parse($conn, "declare isLoginExist NUMBER:=0; begin HOTEL.ADDHOTELGUEST(:isLoginExist,:imie,:nazwisko,:login,:haslo,:nr_karty); end;");
-//        oci_bind_by_name($expr, ":isLoginExist", $isLoginExist, -1);
-//        oci_bind_by_name($expr, ":imie", $imie, -1);
-//        oci_bind_by_name($expr, ":nazwisko", $nazwisko, -1);
-//        oci_bind_by_name($expr, ":login", $login, -1);
-//        oci_bind_by_name($expr, ":haslo", $haslo, -1);
-//        oci_bind_by_name($expr, ":nr_karty", $nr_karty, -1);
-//        oci_execute($expr);
-//        if (!oci_execute($expr, OCI_DEFAULT)) {
-//            $err = oci_error($expr);
-//            trigger_error('Zapytanie zakończyło się niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
-//        }
-//        echo $isLoginExist;
-//        oci_free_statement($expr);
-//        oci_close($conn);
-//        
         ?>
         <div class="wrap">
             <div id="content" style="margin: 20px;">

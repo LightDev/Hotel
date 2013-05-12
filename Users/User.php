@@ -33,6 +33,10 @@ abstract class User {
         return $this->_name;
     }
 
+    public function setName($name) {
+        $this->_name = $name;
+    }
+
     public function getSurname() {
         return $this->_surname;
     }

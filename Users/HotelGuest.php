@@ -2,15 +2,54 @@
 
 class HotelGuest extends User {
 
-    public function __construct($name, $surname, $login, $password, $cardId) {
-        parent::__construct($name, $surname, $login, $password);
-        $this->_cardId = $cardId;
-        //parent::setPassword($password);
+    /**
+     * 
+     * fake przeladowania konstruktora 
+      glowne ograniczenie problem przy potrzebie skorzystania z co najmniej 2och
+      konstruktorow o takiej samej liczbie parametrow.
+      wtedy dodatkowo w kostruktorze mozna zarzucic ifa na dany typ isArray itp;
+      kluczowa okazala się nazwa konstruktora tzn 5 parametrowy musi nazywac miec 5 w nazwie
+     * 
+     */
+    public function __construct() {
         $this->_this_conn = PHP_Helper::getConnection(); //parent::_conn;
+        $argv = func_get_args();
+        switch (func_num_args()) {
+            case 1:
+                self::__construct1($argv[0]);
+                break;
+            case 5:
+                self::__construct5($argv[0], $argv[1], $argv[2], $argv[3], $argv[4]);
+                break;
+        }
     }
 
+    public function __construct1($arg1) {
+        
+    }
+
+    function __construct5($name, $surname, $login, $password, $cardId) {
+        parent::__construct($name, $surname, $login, $password);
+        $this->_cardId = $cardId;
+    }
+
+// Factory Method Pattern ale musi miec od wlasne  zmienne inaczej nie mozna sie odwolac przez $this co daje nulla przy getach()
+//    public static function HotelGuestSimple($name, $surname, $login, $password, $cardId) {
+//        //parent::__construct($name, $surname, $login, $password);
+//        $obj = new HotelGuest();
+//        //parent::setName($name);
+//        $obj->setName($name);
+//        $obj->_surname = $surname;
+//        $obj->_login = $login;
+//        $obj->_password = $password;
+//        //$obj->_cardId = $cardId;
+//
+//        $obj->setCardId($cardId);
+//        return $obj;
+//    }
+
     public function addUser() {
-        $Name = $this->getName();
+        $Name = $this->getName(); //parent::getName();
         $Surname = $this->getSurname();
         $Login = $this->getLogin();
         $Password = $this->getPassword();
@@ -35,8 +74,26 @@ class HotelGuest extends User {
         return $isLoginExist;
     }
 
-    public function bookOnline() {
-        
+//    public function getName() {
+//        return $this->_name;
+//    }
+//
+//    public function setName($name) {
+//        $this->_name = $name;
+//    }
+
+    public function bookOnline($numer, $id_goscia, $od_kiedy, $do_kiedy) {
+        $expr = oci_parse($this->_this_conn, "begin HOTEL.BOOKONLINE(:numer,:id_goscia,:od_kiedy,:do_kiedy); end;");
+        oci_bind_by_name($expr, ":numer", $numer, -1);
+        oci_bind_by_name($expr, ":id_goscia", $id_goscia, -1);
+        oci_bind_by_name($expr, ":od_kiedy", $od_kiedy, -1);
+        oci_bind_by_name($expr, ":do_kiedy", $do_kiedy, -1);
+        $check = oci_execute($expr);
+        if ($check == true)
+            $commit = oci_commit($this->_this_conn);
+        else
+            $commit = oci_rollback($this->_this_conn);
+        oci_free_statement($expr);
     }
 
     public function modifyBooking() {
@@ -68,10 +125,15 @@ class HotelGuest extends User {
         return $this->_cardId;
     }
 
+    public function setCardId($cardId) {
+        $this->_cardId = $cardId;
+    }
+
     private $_cardId;
-    //protected $_conn;
+//protected $_conn;
     private $_this_conn;
 
+    //private $obj = new HotelGuest();
 }
 
 ?>
