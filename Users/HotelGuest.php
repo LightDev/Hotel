@@ -49,11 +49,12 @@ class HotelGuest extends User {
 //    }
 
     public function addUser() {
-        $Name = $this->getName(); //parent::getName();
+        $Name = $this->getName();
         $Surname = $this->getSurname();
         $Login = $this->getLogin();
         $Password = $this->getPassword();
         $CardId = $this->getCardId();
+
         $expr = oci_parse($this->_this_conn, "declare isLoginExist NUMBER:=0; begin HOTEL.ADDHOTELGUEST(:isLoginExist,:imie,:nazwisko,:login,:haslo,:nr_karty); end;");
         oci_bind_by_name($expr, ":isLoginExist", $isLoginExist);
         //echo ($isGood == 0) ? '<br>Procedura wykonana poprawnie<br>' : 'Blad procedury';
@@ -126,7 +127,18 @@ class HotelGuest extends User {
     }
 
     public function setCardId($cardId) {
-        $this->_cardId = $cardId;
+        if (ereg('[0-9]+$', $cardId)) {
+            $lenght = strlen($cardId);
+            //if ($passwordLenght >= 6 && $passwordLenght <= 40) {
+            if ($lenght == 16) {
+                $this->_cardId = $cardId;
+            } else {
+                echo '<p>Numer karty musi posiadać 16 znaków.</p>';
+                //throw new Exception("<p>Hasło musi posiadać od 8 do 40 znaków.</p>");
+            }
+        } else {
+            echo '<p>W numerze karty muszą znajdować się tylko cyfry.</p>';
+        }
     }
 
     private $_cardId;

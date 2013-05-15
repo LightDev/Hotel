@@ -1,10 +1,12 @@
 <?php
 session_start();
 
+//include('PHP_Helper.php');
+
 function showLoginForm() {
     ?>
     <form action = "index.php" method="POST">
-        Nazwa klienta: <input name="login" type="text" /> Hasło: <input name="haslo" type="password" />
+        Nazwa klienta: <input name="login" type="text" /> Hasło: <input name="haslo" type="text" />
         <input type = "submit" class = "button gradient_gold" value = "Zaloguj się" />
         <a href = "register.php" class = "button gradient_silver">Rejestracja</a>
     </form>
@@ -12,10 +14,10 @@ function showLoginForm() {
 }
 
 function czyIstnieje($login, $haslo) {
-    //echo 'haslo z forma ' . $haslo . "<br>";
     $haslo = sha1(trim($haslo));
+    $login = trim($login);
 
-    $zapytanie = "select id,login, haslo from goscie where login='" . trim($login) . "'";
+    $zapytanie = "select id,login, haslo from goscie where login='{$login}' AND haslo='{$haslo}'";
     $polaczenie = oci_connect("hotel", "hotel", "localhost/XE");
     $wyrazenie = oci_parse($polaczenie, $zapytanie);
     if (!oci_execute($wyrazenie)) {
@@ -53,6 +55,9 @@ function czyIstnieje($login, $haslo) {
                 </div>-->
 
         <?php
+//        echo 'sha1:' . sha1('thisistesttext') . "<br>";
+//        echo 'md5:' . md5('thisistesttext') . "<br>";
+//        echo 'sha1:' . PHP_Helper::saltyhash('thisistesttext') . "<br>";
 //        if (!isset($_SESSION['inicjuj'])) {
 //            session_regenerate_id();
 //            $_SESSION['inicjuj'] = true;
@@ -68,16 +73,16 @@ function czyIstnieje($login, $haslo) {
             $_SESSION['user'] = 0;
         }
         if ($_SESSION['user'] == 0 && (!isset($_POST['login']) || !isset($_POST['haslo']))) {
-            echo '<div id="loginButtons">';
+            echo '<div id = "loginButtons">';
             showLoginForm();
         } else {
             if ($_SESSION['user'] > 0) {
-                echo //'<a href="#">Moje rezerwacje</a>
+                echo //'<a href = "#">Moje rezerwacje</a>
                 '<div id="loginButtons" style="width:245px;">
                     <a href = "user_account.php" >Moje rezerwacje</a>
                             Witaj ' . $_SESSION['login'] .
                 '<a href = "logout.php" class = "button gradient_silver">Wyloguj</a>';
-                //'<a href = "index.php" onclick="logout();" class = "button gradient_silver">Wyloguj</a>';
+//'<a href = "index.php" onclick="logout();" class = "button gradient_silver">Wyloguj</a>';
             } else {
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     if (($id = czyIstnieje($_POST['login'], $_POST['haslo'])) !== false) {

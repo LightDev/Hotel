@@ -34,15 +34,33 @@ abstract class User {
     }
 
     public function setName($name) {
-        $this->_name = $name;
+        $this->_name = ucfirst($name);
     }
 
     public function getSurname() {
         return $this->_surname;
     }
 
+    public function setSurname($surname) {
+        $this->_surname = ucfirst($surname);
+    }
+
     public function getLogin() {
         return $this->_login;
+    }
+
+    public function setLogin($login) {
+        $lenght = strlen($login);
+        if ($lenght >= 5 && $lenght <= 15) {
+            $this->_login = $login;
+        } else {
+            echo '<p>Login musi posiadać od 5 do 15 znaków.</p>';
+            //throw new Exception("<p>Hasło musi posiadać od 8 do 40 znaków.</p>");
+        }
+    }
+
+    public function getPassword() {
+        return $this->_password;
     }
 
     public function setPassword($password) {
@@ -53,10 +71,6 @@ abstract class User {
             echo '<p>Hasło musi posiadać od 6 do 40 znaków.</p>';
             //throw new Exception("<p>Hasło musi posiadać od 8 do 40 znaków.</p>");
         }
-    }
-
-    public function getPassword() {
-        return $this->_password;
     }
 
     protected $_id;

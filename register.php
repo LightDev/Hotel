@@ -47,13 +47,22 @@
                         echo '<p class = "error_text" style = "border: 1px solid #ccc;">Uzupełnij niezbędne pola.</p>';
                         showRegistrationForm();
                     } else {
-                        $imie = $_POST['imie'];
-                        $nazwisko = $_POST['nazwisko'];
-                        $login = $_POST['login'];
-                        //echo $login;
-                        //$haslo = sha1($_POST['haslo']);
-                        $haslo = $_POST['haslo'];
-                        $nr_karty = $_POST['nr_karty'];
+
+                        $formOut = array_map('trim', $_POST);
+//                        foreach ($formOut as $field) {
+////                            if () {
+////                                
+////                            }
+//                            print_r($field);
+//                        }
+//                        var_dump($formOut);
+                        //echo $formOut["imie"];
+                        $imie = ucfirst($formOut["imie"]);
+
+                        $nazwisko = ucfirst($formOut['nazwisko']);
+                        $login = $formOut['login'];
+                        $haslo = $formOut['haslo'];
+                        $nr_karty = $formOut['nr_karty'];
                         $hotelGuest = new HotelGuest($imie, $nazwisko, $login, $haslo, $nr_karty);
                         $isLoginExist = $hotelGuest->addUser();
 
