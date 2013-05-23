@@ -30,7 +30,7 @@ class HotelGuest extends User {
 
     function __construct5($name, $surname, $login, $password, $cardId) {
         parent::__construct($name, $surname, $login, $password);
-        $this->_cardId = $cardId;
+        $this->_cardId = $this->setCardId($cardId);
     }
 
 // Factory Method Pattern ale musi miec od wlasne  zmienne inaczej nie mozna sie odwolac przez $this co daje nulla przy getach()
@@ -114,38 +114,38 @@ class HotelGuest extends User {
         return $isReservationIdExist;
     }
 
-    public function __destruct() {
-        oci_close($this->_this_conn);
+    public function getCardId() {
+        return $this->_cardId;
+    }
+
+    public function setCardId($cardId) {
+        if (!empty($cardId)) {
+            if (preg_match(PHP_Helper::NUMBER_PATTERN, $cardId)) {
+                $lenght = strlen($cardId);
+                //if ($passwordLenght >= 6 && $passwordLenght <= 40) {
+                if ($lenght == 16) {
+                    $this->_cardId = $cardId;
+                } else {
+                    echo '<p>Numer karty musi posiadać 16 znaków.</p>';
+                    //throw new Exception("<p>Hasło musi posiadać od 8 do 40 znaków.</p>");
+                }
+            } else {
+                echo '<p>W numerze karty muszą znajdować się tylko cyfry.</p>';
+            }
+        }
     }
 
     public function __toString() {
         return "Obiekt klasy " . __CLASS__ . "";
     }
 
-    public function getCardId() {
-        return $this->_cardId;
-    }
-
-    public function setCardId($cardId) {
-        if (ereg('[0-9]+$', $cardId)) {
-            $lenght = strlen($cardId);
-            //if ($passwordLenght >= 6 && $passwordLenght <= 40) {
-            if ($lenght == 16) {
-                $this->_cardId = $cardId;
-            } else {
-                echo '<p>Numer karty musi posiadać 16 znaków.</p>';
-                //throw new Exception("<p>Hasło musi posiadać od 8 do 40 znaków.</p>");
-            }
-        } else {
-            echo '<p>W numerze karty muszą znajdować się tylko cyfry.</p>';
-        }
+    public function __destruct() {
+        oci_close($this->_this_conn);
     }
 
     private $_cardId;
-//protected $_conn;
     private $_this_conn;
 
-    //private $obj = new HotelGuest();
 }
 
 ?>

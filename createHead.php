@@ -1,6 +1,7 @@
 <?php
 
 function createHead($title, $relativePath = "") { ?>
+    <!--<meta http-equiv = "Content-Type" content = "text/html; charset=iso-8859-2">-->
     <meta http-equiv = "Content-Type" content = "text/html; charset=UTF-8">
     <title><?php echo $title; ?></title>
     <link rel="shortcut icon" href="<?php echo $relativePath; ?>img/icon_032.png">

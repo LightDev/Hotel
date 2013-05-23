@@ -1,0 +1,83 @@
+#MENU {
+
+    width: 150px;
+    float: left;
+    /*overflow: hidden;*/
+    /*background-color: #ccc;*/
+    background: #fff;
+    /*box-shadow:2px 2px 5px #3D3C3C;*/
+}
+#MENU a{
+    color: #000;
+}
+#MENU ul{
+    width: 145px;
+    /*border: 1px solid #ddd;*/
+    /*border-top: 5px solid #1F5D9B;*/
+    -webkit-border-radius: 0px 0px 7px 7px;
+    -moz-border-radius: 0px 0px 7px 7px;
+    border-radius: 0px 0px 7px 7px;
+
+    box-shadow:1px 1px 4px #807D7D;
+    margin-top: -35px;
+
+}
+#MENU ul li {
+    border-bottom: 1px solid #000;
+    padding: 5px;
+
+}
+#MENU ul li:hover {
+    background: #3297FD;
+    background: #eee;
+    /*color: #fff;*/
+}
+#MENU ul li:last-child {
+    border-bottom: none;
+    -webkit-border-radius: 0px 0px 7px 7px;
+    -moz-border-radius: 0px 0px 7px 7px;
+    border-radius: 0px 0px 7px 7px;
+}
+#MENU ul li a{
+    font-family: "Lucida Grande", Arial, Helvetica, Geneva, Sans-serif;
+    font-size: 11px;
+    /*font-weight: bold;*/
+
+}
+/*            #MENU ul li:hover{
+                background: #1F5D9B;
+                color: #fff;
+            }*/
+#MENU ul li a:hover{
+    background: #eee;
+    /*background: #3297FD;*/
+    /*color: #fff;*/
+    /*padding: 3px;*/
+}
+#MENU ul li:first-child{background:#3297FD;font-weight: bolder;
+                        color: #fff;
+                        font-size: 10.5px;
+                        /*height: 50px;*/
+                        background: #7abcff; /* Old browsers */
+                        background: -moz-linear-gradient(top,  #7abcff 0%, #60abf8 44%, #4096ee 100%); /* FF3.6+ */
+                        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7abcff), color-stop(44%,#60abf8), color-stop(100%,#4096ee)); /* Chrome,Safari4+ */
+                        background: -webkit-linear-gradient(top,  #7abcff 0%,#60abf8 44%,#4096ee 100%); /* Chrome10+,Safari5.1+ */
+                        background: -o-linear-gradient(top,  #7abcff 0%,#60abf8 44%,#4096ee 100%); /* Opera 11.10+ */
+                        background: -ms-linear-gradient(top,  #7abcff 0%,#60abf8 44%,#4096ee 100%); /* IE10+ */
+                        background: linear-gradient(to bottom,  #7abcff 0%,#60abf8 44%,#4096ee 100%); /* W3C */
+                        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#4096ee',GradientType=0 ); /* IE6-9 */
+}
+#MENU ul li:first-child:hover{color: #fff;}
+#TRESC {
+    padding: 10px;
+    width: 730px;
+    float: left;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+#STOPKA {
+    clear: both;
+    width: 100%;
+    background-color: #888;
+}

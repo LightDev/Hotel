@@ -12,12 +12,15 @@ abstract class User {
 //    }
 
     public function __construct($name, $surname, $login, $password) {
-        $this->_login = $login;
-        $this->_name = $name;
-        $this->_surname = $surname;
+//        $this->_login = $login;
+//        $this->_name = $name;
+//        $this->_surname = $surname;
+        $this->setName($name);
+        $this->setSurname($surname);
+        $this->setLogin($login);
         $this->setPassword($password);
-        $this->_password = SHA1($password);
-        //$this->_password = $password;
+        //$this->_password = SHA1($password);
+//$this->_password = $password;
         $this->conn = PHP_Helper::getConnection();
     }
 
@@ -34,7 +37,15 @@ abstract class User {
     }
 
     public function setName($name) {
-        $this->_name = ucfirst($name);
+        echo 'dopasoawelm oimie';
+        echo preg_match(PHP_Helper::TEXT_PATTERN, $name);
+        if (preg_match(PHP_Helper::TEXT_PATTERN, $name)) {
+            echo 'dopasoawelm oimie';
+            $this->_name = ucfirst(strtolower($name));
+        } else {
+            echo '<p>Imię nie może zawierać cyfr.</p>';
+//throw new Exception("<p>Hasło musi posiadać od 8 do 40 znaków.</p>");
+        }
     }
 
     public function getSurname() {
@@ -42,7 +53,12 @@ abstract class User {
     }
 
     public function setSurname($surname) {
-        $this->_surname = ucfirst($surname);
+        if (preg_match(PHP_Helper::TEXT_PATTERN, $surname)) {
+            $this->_surname = ucfirst(strtolower($surname));
+        } else {
+            echo '<p>Nazwisko nie może zawierać cyfr.</p>';
+//throw new Exception("<p>Hasło musi posiadać od 8 do 40 znaków.</p>");
+        }
     }
 
     public function getLogin() {
@@ -55,7 +71,7 @@ abstract class User {
             $this->_login = $login;
         } else {
             echo '<p>Login musi posiadać od 5 do 15 znaków.</p>';
-            //throw new Exception("<p>Hasło musi posiadać od 8 do 40 znaków.</p>");
+//throw new Exception("<p>Hasło musi posiadać od 8 do 40 znaków.</p>");
         }
     }
 
@@ -66,10 +82,10 @@ abstract class User {
     public function setPassword($password) {
         $passwordLenght = strlen($password);
         if ($passwordLenght >= 6 && $passwordLenght <= 40) {
-            $this->_password = $password;
+            $this->_password = SHA1($password);
         } else {
             echo '<p>Hasło musi posiadać od 6 do 40 znaków.</p>';
-            //throw new Exception("<p>Hasło musi posiadać od 8 do 40 znaków.</p>");
+//throw new Exception("<p>Hasło musi posiadać od 8 do 40 znaków.</p>");
         }
     }
 

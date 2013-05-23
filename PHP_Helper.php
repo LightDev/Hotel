@@ -125,6 +125,10 @@ class PHP_Helper {
         return $saltyhash;
     }
 
+    const TEXT_PATTERN = '/^[a-zA-Z]+$/';
+    const NUMBER_PATTERN = '/^[0-9]+$/';
+
+//    static final $text_pattern = '[a-zA-Z]+$';
 }
 
 ?>

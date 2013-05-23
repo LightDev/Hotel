@@ -4,8 +4,8 @@ session_start();
 function showLoginForm() {
     ?>
     <form action = "index.php" method="POST">
-        Nazwa klienta: <input name="login" type="text" /> Has≈Ço: <input name="haslo" type="password" />
-        <input type = "submit" class = "button gradient_gold" value = "Zaloguj siƒô" />
+        Nazwa klienta: <input name="login" type="text" /> Has≥o: <input name="haslo" type="password" />
+        <input type = "submit" class = "button gradient_gold" value = "Zaloguj siÍ" />
         <a href = "register.php" class = "button gradient_silver">Rejestracja</a>
     </form>
     <?php
@@ -22,7 +22,7 @@ function czyIstnieje($login, $haslo) {
     $wyrazenie = oci_parse($polaczenie, $zapytanie);
     if (!oci_execute($wyrazenie)) {
         $err = oci_error($wyrazenie);
-        trigger_error('Zapytanie zako≈Ñczy≈Ço siƒô niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
+        trigger_error('Zapytanie zakoÒczy≥o siÍ niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
     }
     $id = 0;
     $loginZBazy = "a";
@@ -79,7 +79,7 @@ function czyIstnieje($login, $haslo) {
                     '<div id="loginButtons" style="width:150px;">Witaj ' . $_POST['login'] .
                     '<a href = "logout.php" class = "button gradient_silver">Wyloguj</a>';
                 } else {
-                    echo '<div id="loginButtons" style="width:860px;"><span class = "error_text">Poda≈Çe≈õ nieprawid≈Çowe login lub has≈Ço</span>';
+                    echo '<div id="loginButtons" style="width:860px;"><span class = "error_text">Poda≥e∂ nieprawid≥owe login lub has≥o</span>';
                     showLoginForm();
                 }
             } else {

@@ -1,88 +1,12 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
     <head>
-        <meta http-equiv = "Content-Type" content = "text/html; charset=UTF-8">
+        <!--<meta http-equiv = "Content-Type" content = "text/html; charset=iso8852-2">-->
 
         <?php
         include('../createHead.php');
         createHead("Admin", "../");
         ?>
-        <style type="text/css">
-            /* <![CDATA[ */
-
-            body{
-                /*background-color: #eee;*/
-            }
-            #MENU {
-
-                width: 150px;
-                float: left;
-                /*overflow: hidden;*/
-                background-color: #ccc;
-                background: #fff;
-                /*box-shadow:2px 2px 5px #3D3C3C;*/
-            }
-            #MENU a{
-                color: #000;
-            }
-            #MENU ul{
-                width: 145px;
-                /*border: 1px solid #ddd;*/
-                /*border-top: 5px solid #1F5D9B;*/
-                -webkit-border-radius: 0px 0px 7px 7px;
-                -moz-border-radius: 0px 0px 7px 7px;
-                border-radius: 0px 0px 7px 7px;
-
-                box-shadow:1px 1px 4px #807D7D;
-
-
-            }
-            #MENU ul li {
-                border-bottom: 1px solid #000;
-                padding: 5px;
-
-            }
-            #MENU ul li:hover {
-                background: #3297FD;
-                color: #fff;
-            }
-            #MENU ul li:last-child {
-                border-bottom: none;
-                -webkit-border-radius: 0px 0px 7px 7px;
-                -moz-border-radius: 0px 0px 7px 7px;
-                border-radius: 0px 0px 7px 7px;
-            }
-            #MENU ul li a{
-                font-family: "Lucida Grande", Arial, Helvetica, Geneva, Sans-serif;
-                font-size: 11px;
-                font-weight: bold;
-
-            }
-            /*            #MENU ul li:hover{
-                            background: #1F5D9B;
-                            color: #fff;
-                        }*/
-            #MENU ul li a:hover{
-                background: #3297FD;
-                color: #fff;
-                padding: 3px;
-            }
-
-            #TRESC {
-                padding: 10px;
-                width: 730px;
-                float: left;
-                overflow: hidden;
-                background-color: #fff;
-            }
-
-            #STOPKA {
-                clear: both;
-                width: 100%;
-                background-color: #888;
-            }
-            /* ]]> */
-        </style>
 
     </head>
 
@@ -153,22 +77,24 @@ require_once("./googlecharttools/ClassLoader.class.php");
         $manager->addChart($pieChart);
 
         function showActualGuests() {
-            $zapytanie = 'SELECT imie, nazwisko
+            $zapytanie = "SELECT imie, nazwisko,to_char(od_kiedy,'dd/mm/yyyy') od,to_char(do_kiedy,'dd/mm/yyyy') do
                 FROM Pokoje p  JOIN Rezerwacje r ON (p.numer=r.numer) JOIN Goscie g ON (r.id_goscia=g.id)
-                WHERE od_kiedy>=SYSDATE';
+                WHERE SYSDATE between od_kiedy and do_kiedy";
 
             $polaczenie = oci_connect("hotel", "hotel", "localhost/XE");
             $wyrazenie = oci_parse($polaczenie, $zapytanie);
             if (!oci_execute($wyrazenie)) {
                 $err = oci_error($wyrazenie);
-                trigger_error('Zapytanie zakoÄ¹â€žczyÄ¹â€šo siÃ„â„¢ niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
+                trigger_error('Zapytanie zakoÅ?czyÅ?o siÄ? niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
             }
             ?>
             <table id="table-6" >
                 <thead>
                 <th>No.</th>
-                <th>ImiÄ™</th>
+                <th>Imiê</th>
                 <th>Nazwisko</th>
+                <th>Od</th>
+                <th>Do</th>
             </thead>
             <tbody>
                 <?php
@@ -176,7 +102,7 @@ require_once("./googlecharttools/ClassLoader.class.php");
 
                 while ($rekord = oci_fetch_array($wyrazenie, OCI_ASSOC)) {
                     echo "<tr><td>" . $from . "</td><td>" .
-                    $rekord['IMIE'] . "</td><td>" . $rekord['NAZWISKO'] . "</td>";
+                    $rekord['IMIE'] . "</td><td>" . $rekord['NAZWISKO'] . "</td><td>" . $rekord['OD'] . "</td><td>" . $rekord['DO'] . "</td>";
                     $from++;
                 }
                 //$rowsCount = oci_num_rows($wyrazenie);
@@ -192,12 +118,12 @@ require_once("./googlecharttools/ClassLoader.class.php");
     <div class="wrap">
         <?php include('menu.php'); ?>
         <div id = "TRESC">
-            <h2 class="underline extraBottomMargin">Aktualna lista goÅ›ci (<?php echo(date("d-m-Y | G:i:s", time())); ?>)</h2>
+            <h2 class="underline extraBottomMargin">Aktualna lista go¶ci (<?php echo(date("d-m-Y | G:i:s", time())); ?>)</h2>
             <?php
             showActualGuests();
             //echo $manager->getHtmlHeaderCode();
             ?>
-            <!--<h1>Liczba goÅ›ci w poprzednich dniach</h1>-->
+            <!--<h1>Liczba go¶ci w poprzednich dniach</h1>-->
             <?php //echo $pieChart->getHtmlContainer();       ?>
         </div>
     </div>

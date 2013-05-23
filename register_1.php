@@ -46,7 +46,7 @@
                             empty($_POST['nazwisko']) ||
                             empty($_POST['login']) ||
                             empty($_POST['haslo'])) {
-                        echo '<p class = "error_text" style = "border: 1px solid #ccc;">Uzupełnij pola oznaczone gwiazdką.</p>';
+                        echo '<p class = "error_text" style = "border: 1px solid #ccc;">Uzupełnij niezbędne pola.</p>';
                         showRegistrationForm();
                     } else {
                         $imie = $formOut["imie"];
@@ -54,8 +54,6 @@
                         $login = $formOut['login'];
                         $haslo = $formOut['haslo'];
                         $nr_karty = $formOut['nr_karty'];
-
-                        //$ho
                         $hotelGuest = new HotelGuest($imie, $nazwisko, $login, $haslo, $nr_karty);
                         $isLoginExist = $hotelGuest->addUser();
 

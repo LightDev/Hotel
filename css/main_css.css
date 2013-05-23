@@ -5,6 +5,7 @@
 @import url('table.css');
 @import url('button.css');
 @import url('form.css');
+@import url('admin.css');
 
 body {
     font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
