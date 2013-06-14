@@ -22,7 +22,7 @@ class PHP_Helper {
             trigger_error('Zapytanie zakończyło się niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
         }
         while ($r = oci_fetch_array($expr, OCI_ASSOC)) {
-            $r['LAZIENKA'];
+            //$r['LAZIENKA'];
         }//bez tej petli nie dziala oci_num_rows
         $rowsCount = oci_num_rows($expr);
         oci_close($conn);

@@ -323,3 +323,38 @@ input.date_picker {
     float: left;
     width: 700px;
 }
+.my_reservations_link:hover{
+    color: #000 !important;
+}
+#preferences_menu ul{
+    padding-bottom: 0px;
+}
+#preferences_menu ul li {
+    border-bottom: 1px solid #ccc ;
+    padding: 5px;
+
+}
+#preferences_menu ul li:hover {
+    background: #3297FD;
+    background: #eee;
+    /*color: #fff;*/
+}
+#preferences_menu ul li a:hover {
+
+    color: #111;
+    /*color: #fff;*/
+}
+#preferences_menu ul li:last-child {
+    border-bottom: none;
+
+    -webkit-border-radius: 0px 0px 7px 7px;
+    -moz-border-radius: 0px 0px 7px 7px;
+    border-radius: 0px 0px 7px 7px;
+}
+#preferences_menu ul li:first-child:hover{
+    /*border-bottom: none;*/
+    background: none;
+    /*    -webkit-border-radius: 0px 0px 7px 7px;
+        -moz-border-radius: 0px 0px 7px 7px;
+        border-radius: 0px 0px 7px 7px;*/
+}

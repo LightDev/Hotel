@@ -50,7 +50,7 @@
     background: -moz-linear-gradient(top, #F0F0F0 0, #DBDBDB 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #F0F0F0), color-stop(100%, #DBDBDB));
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F0F0F0', endColorstr='#DBDBDB', GradientType=0);
-    border: 1px solid #B0B0B0;
+    /*border: 1px solid #B0B0B0;*/
     color: #444;
     font-size: 14px;
     font-weight: bold;
@@ -62,6 +62,6 @@
 #table-6 tr:nth-child(even) {
     background: #F2F2F2;
 }
-#table-6 tr:hover{
+/*#table-6 tr:hover{
     background: #ddd;
-}
+}*/

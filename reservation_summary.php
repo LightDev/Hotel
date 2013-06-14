@@ -55,8 +55,8 @@
                     if ($_SESSION['user'] > 0) {
                         echo '<td><input type="submit" class = "button gradient_gold" value="Dokonaj rezerwacji" />                            
                             <input type="hidden" name="roomId" id="roomId" value="' . $roomId . '"  >
-                            <input type="hidden" name="dateFromHidden" id="dateFromHidden" value="' . $_POST['dateFromHidden'] . '"  >
-                                    <input type="hidden" name="dateToHidden" id="dateToHidden" value="' . $_POST['dateToHidden'] . '"  ></td>';
+                            <input type="hidden" name="dateFromHidden" id="dateFromHidden" value="' . $_SESSION['dateFromHidden'] . '"  >
+                                    <input type="hidden" name="dateToHidden" id="dateToHidden" value="' . $_SESSION['dateToHidden'] . '"  ></td>';
                     } else {
                         echo '<td><a href = "register.php" class = "button gradient_gold">Dokonaj rezerwacji</a></td>';
                     }

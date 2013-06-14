@@ -79,7 +79,7 @@ function czyIstnieje($login, $haslo) {
             if ($_SESSION['user'] > 0) {
                 echo //'<a href = "#">Moje rezerwacje</a>
                 '<div id="loginButtons" style="width:245px;">
-                    <a href = "user_account.php" >Moje rezerwacje</a>
+                    <a href = "user_account.php" class="my_reservations_link" >Moje rezerwacje</a>
                             Witaj ' . $_SESSION['login'] .
                 '<a href = "logout.php" class = "button gradient_silver">Wyloguj</a>';
 //'<a href = "index.php" onclick="logout();" class = "button gradient_silver">Wyloguj</a>';

@@ -77,7 +77,7 @@ require_once("./googlecharttools/ClassLoader.class.php");
         $manager->addChart($pieChart);
 
         function showActualGuests() {
-            $zapytanie = "SELECT imie, nazwisko,to_char(od_kiedy,'dd/mm/yyyy') od,to_char(do_kiedy,'dd/mm/yyyy') do
+            $zapytanie = "SELECT imie, nazwisko,r.numer,zaplata,klucz,to_char(od_kiedy,'dd/mm/yyyy') od,to_char(do_kiedy,'dd/mm/yyyy') do
                 FROM Pokoje p  JOIN Rezerwacje r ON (p.numer=r.numer) JOIN Goscie g ON (r.id_goscia=g.id)
                 WHERE SYSDATE between od_kiedy and do_kiedy";
 
@@ -95,14 +95,24 @@ require_once("./googlecharttools/ClassLoader.class.php");
                 <th>Nazwisko</th>
                 <th>Od</th>
                 <th>Do</th>
+                <th>Pokój</th>
+                <th>Zap³acono</th>
+                <th>Klucz</th>
             </thead>
             <tbody>
                 <?php
                 $from = 1; //{5}
 
                 while ($rekord = oci_fetch_array($wyrazenie, OCI_ASSOC)) {
-                    echo "<tr><td>" . $from . "</td><td>" .
-                    $rekord['IMIE'] . "</td><td>" . $rekord['NAZWISKO'] . "</td><td>" . $rekord['OD'] . "</td><td>" . $rekord['DO'] . "</td>";
+                    echo "<tr>
+                        <td>" . $from . "</td>
+                        <td>" . $rekord['IMIE'] . "</td>
+                        <td>" . $rekord['NAZWISKO'] . "</td>
+                        <td>" . $rekord['OD'] . "</td>
+                        <td>" . $rekord['DO'] . "</td>.
+                        <td>" . $rekord['NUMER'] . "</td>.
+                        <td>" . ($rekord['ZAPLATA'] == 'Y' ? 'Tak' : 'Nie') . "</td>.
+                        <td>" . ($rekord['KLUCZ'] == 'Y' ? 'Tak' : 'Nie') . "</td>";
                     $from++;
                 }
                 //$rowsCount = oci_num_rows($wyrazenie);

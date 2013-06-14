@@ -24,13 +24,13 @@
                 <?php
                 $roomId = $_POST['roomId'];
                 $guestId = $_SESSION['user'];
-                $dateFrom = $_POST['dateFromHidden'];
-                $dateTo = $_POST['dateToHidden'];
+                $dateFrom = $_SESSION['dateFromHidden'];
+                $dateTo = $_SESSION['dateToHidden'];
                 $hotelGuest = new HotelGuest();
                 $hotelGuest->bookOnline($roomId, $guestId, $dateFrom, $dateTo);
                 ?>
                 <h2 class="ok_text">Rezerwacja została złożona</h2>
-                <p><a href="my_reservations.php" >Przejdz do Twoich rezerwacji</a></p>
+                <p><a href="user_account.php" >Przejdz do Twoich rezerwacji</a></p>
                 <p><a href="index.php" >Wróć na stronę główną</a></p>
             </div>
         </div>
