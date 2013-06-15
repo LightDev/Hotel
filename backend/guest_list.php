@@ -2,6 +2,7 @@
 <html>
     <head>
         <!--<meta http-equiv = "Content-Type" content = "text/html; charset=iso8852-2">-->
+        <meta http-equiv = "Content-Type" content = "text/html; charset=UTF-8">
 
         <?php
         include('../createHead.php');
@@ -50,7 +51,7 @@ require_once("./googlecharttools/ClassLoader.class.php");
 
         $rowWork = new Row();
         $rowWork->addCell(new Cell("Work"))->addCell(new Cell(11));
-        ;
+
         $activitiesData->addRow($rowWork);
 
         $rowEat = new Row();
@@ -76,10 +77,16 @@ require_once("./googlecharttools/ClassLoader.class.php");
         $manager = new ChartManager();
         $manager->addChart($pieChart);
 
-        function showActualGuests() {
+        function showActualGuests($od, $do) {
             $zapytanie = "SELECT imie, nazwisko,r.numer,zaplata,klucz,to_char(od_kiedy,'dd/mm/yyyy') od,to_char(do_kiedy,'dd/mm/yyyy') do
                 FROM Pokoje p  JOIN Rezerwacje r ON (p.numer=r.numer) JOIN Goscie g ON (r.id_goscia=g.id)
-                WHERE SYSDATE between od_kiedy and do_kiedy";
+WHERE od_kiedy<=to_date('{$od}','yy-mm-dd') AND do_kiedy>=to_date('{$do}','yy-mm-dd')
+                            or
+                            (r.od_kiedy  between to_date('{$od}','yy/mm/dd') and to_date('{$do}','yy/mm/dd')) or
+                            ( r.do_kiedy  between to_date('{$od}','yy/mm/dd') and to_date('{$do}','yy/mm/dd'))                                
+                         order by 3";
+
+//WHERE SYSDATE between od_kiedy and do_kiedy";
 
             $polaczenie = oci_connect("hotel", "hotel", "localhost/XE");
             $wyrazenie = oci_parse($polaczenie, $zapytanie);
@@ -128,9 +135,14 @@ require_once("./googlecharttools/ClassLoader.class.php");
     <div class="wrap">
         <?php include('menu.php'); ?>
         <div id = "TRESC">
-            <h2 class="underline extraBottomMargin">Aktualna lista go¶ci (<?php echo(date("d-m-Y | G:i:s", time())); ?>)</h2>
+            <h1 class="underline extraBottomMargin">Aktualna lista go¶ci (<?php echo(date("d-m-Y | G:i:s", time())); ?>)</h1>
             <?php
-            showActualGuests();
+            $od = "SYSDATE";
+            $do = "SYSDATE";
+            $od = '13-06-14';
+            $do = '13-06-14';
+//          
+            showActualGuests($od, $do);
             //echo $manager->getHtmlHeaderCode();
             ?>
             <!--<h1>Liczba go¶ci w poprzednich dniach</h1>-->

@@ -63,6 +63,15 @@
                             <td><input name="haslo" type="password" /></td>
                         </tr>
                         <tr>
+                            <td>Typ:</td>
+                            <td><select name="typ" type="text" >
+                                    <option value="worker">Pracownik</option>
+                                    <option value="admin">Administrator</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
                             <td>
                                 <input type = "submit" class = "button gradient_silver" value = "Zaloguj się" />
                             </td>

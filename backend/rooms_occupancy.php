@@ -51,29 +51,37 @@
     <div class="wrap">
         <?php include('menu.php'); ?>
         <div id = "TRESC">
-            <h2 class="underline extraBottomMargin">Zajêto¶æ pokoi (<?php echo(date("d-m-Y | G:i:s", time())); ?>)</h2>
+            <h1 class="underline extraBottomMargin">Zajêto¶æ pokoi (<?php echo(date("d-m-Y | G:i:s", time())); ?>)</h1>
             <?php
             $od = '2013-06-14';
-            $do = '2013-06-14';
+            $do = '2013-06-17';
 //            $zapytanie = "SELECT r.numer suma FROM Rezerwacje r JOIN Pokoje p ON(r.numer=p.numer) 
 //                WHERE od_kiedy>to_date('{$od}','yyyy-mm-dd') 
 //                AND   do_kiedy<to_date('{$do}','yyyy-mm-dd')";
-            $zapytanie = "SELECT distinct p.numer,p.ilu_osobowy,p.cena,p.lazienka,od_kiedy,do_kiedy  FROM Rezerwacje r JOIN Pokoje p ON(r.numer=p.numer) 
-WHERE do_kiedy>sysdate
-MINUS
-SELECT distinct p.numer,p.ilu_osobowy,p.cena,p.lazienka,od_kiedy,do_kiedy  FROM Rezerwacje r JOIN Pokoje p ON(r.numer=p.numer) 
-WHERE 
-r.od_kiedy  between to_date('13/06/14','yy/mm/dd') and to_date('13/06/17','yy/mm/dd') or
- r.do_kiedy  between to_date('13/06/14','yy/mm/dd') and to_date('13/06/17','yy/mm/dd')
-order by 1
-";
+            $zapytanie = "select numer 
+                          from pokoje 
+                          where numer not in (
+                            SELECT p.numer
+                            FROM Rezerwacje r JOIN Pokoje p ON(r.numer=p.numer) 
+                            WHERE od_kiedy<=to_date('{$od}','yy-mm-dd') AND do_kiedy>=to_date('{$do}','yy-mm-dd')
+                            or
+                            (r.od_kiedy  between to_date('{$od}','yy/mm/dd') and to_date('{$do}','yy/mm/dd')) or
+                            ( r.do_kiedy  between to_date('{$od}','yy/mm/dd') and to_date('{$do}','yy/mm/dd')))
+                         order by 1";
             echo "<br /><h1 class=\"underline\">Wolne pokoje</h1>";
             echo "<br />";
             showRooms($zapytanie, $od, $do);
             echo "<br />";
-            $zapytanie = "SELECT r.numer FROM Rezerwacje r JOIN Pokoje p ON(r.numer=p.numer)
-            WHERE od_kiedy<=to_date('{$od}','yyyy-mm-dd') 
-            AND   do_kiedy>=to_date('{$do}','yyyy-mm-dd')";
+//            $zapytanie = "SELECT r.numer FROM Rezerwacje r JOIN Pokoje p ON(r.numer=p.numer)
+//            WHERE od_kiedy<=to_date('{$od}','yyyy-mm-dd') 
+//            AND   do_kiedy>=to_date('{$do}','yyyy-mm-dd')";
+            $zapytanie = "SELECT r.numer 
+ FROM Rezerwacje r JOIN Pokoje p ON(r.numer=p.numer) 
+ WHERE od_kiedy<=to_date('{$od}','yy-mm-dd') AND do_kiedy>=to_date('{$do}','yy-mm-dd')
+or
+(r.od_kiedy  between to_date('{$od}','yy/mm/dd') and to_date('{$do}','yy/mm/dd')) or
+( r.do_kiedy  between to_date('{$od}','yy/mm/dd') and to_date('{$do}','yy/mm/dd'))
+order by 1";
             echo "<br /><h1 class=\"underline\">Zajete pokoje</h1>";
             echo "<br />";
             showRooms($zapytanie, $od, $do);

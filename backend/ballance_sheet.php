@@ -5,85 +5,6 @@
         include('../createHead.php');
         createHead("Admin", "../");
         ?>
-        <style type="text/css">
-            /* <![CDATA[ */
-
-            body{
-                /*background-color: #eee;*/
-            }
-            #MENU {
-
-                width: 150px;
-                float: left;
-                /*overflow: hidden;*/
-                background-color: #ccc;
-                background: #fff;
-                /*box-shadow:2px 2px 5px #3D3C3C;*/
-
-
-            }
-            #MENU a{
-                color: #000;
-            }
-            #MENU ul{
-                width: 145px;
-                /*border: 1px solid #ddd;*/
-                /*border-top: 5px solid #1F5D9B;*/
-                -webkit-border-radius: 0px 0px 7px 7px;
-                -moz-border-radius: 0px 0px 7px 7px;
-                border-radius: 0px 0px 7px 7px;
-
-                box-shadow:1px 1px 4px #807D7D;
-
-
-            }
-            #MENU ul li {
-                border-bottom: 1px solid #000;
-                padding: 5px;
-
-            }
-            #MENU ul li:hover {
-                background: #3297FD;
-                color: #fff;
-            }
-            #MENU ul li:last-child {
-                border-bottom: none;
-                -webkit-border-radius: 0px 0px 7px 7px;
-                -moz-border-radius: 0px 0px 7px 7px;
-                border-radius: 0px 0px 7px 7px;
-            }
-            #MENU ul li a{
-                font-family: "Lucida Grande", Arial, Helvetica, Geneva, Sans-serif;
-                font-size: 11px;
-                font-weight: bold;
-
-            }
-            /*            #MENU ul li:hover{
-                            background: #1F5D9B;
-                            color: #fff;
-                        }*/
-            #MENU ul li a:hover{
-                background: #3297FD;
-                color: #fff;
-                padding: 3px;
-            }
-
-            #TRESC {
-                padding: 10px;
-                width: 730px;
-                float: left;
-                overflow: hidden;
-                background-color: #fff;
-            }
-
-            #STOPKA {
-                clear: both;
-                width: 100%;
-                background-color: #888;
-            }
-            /* ]]> */
-        </style>
-
     </head>
 
     <body>
@@ -187,6 +108,58 @@ require_once("./googlecharttools/ClassLoader.class.php");
             "SELECT sum(cena) suma FROM Rezerwacje NATURAL JOIN Pokoje WHERE
         od_kiedy>=( select to_date(SYSDATE,'yyyy-mm-dd')+interval'-7'day from dual) AND do_kiedy<=SYSDATE";
         }
+
+        function showAllRoomsIncome() {
+            //2b - przychod w miesiacyu
+
+            $polaczenie = oci_connect("hotel", "hotel", "localhost/XE");
+            $zapytanie = "SELECT do_kiedy-od_kiedy ile_dni from rezerwacje";
+
+            $wyrazenie = oci_parse($polaczenie, $zapytanie);
+            if (!oci_execute($wyrazenie)) {
+                $err = oci_error($wyrazenie);
+                trigger_error('Zapytanie zakoĹ„czyĹ‚o siÄ™ niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
+            }
+            $tab = array();
+            $i = 0;
+            while ($rekord = oci_fetch_array($wyrazenie, OCI_ASSOC)) {
+                $tab[$i] = $rekord['ILE_DNI'];
+                $i++;
+            }
+            //var_dump($tab);
+
+            $zapytanie = "SELECT p.numer,nvl(sum(cena),0) suma 
+FROM Rezerwacje r, Pokoje p  
+WHERE p.numer=r.numer
+group by p.numer
+union 
+SELECT p.numer,0suma
+FROM Rezerwacje r, Pokoje p  
+WHERE 
+p.numer not in (SELECT p.numer
+          FROM Rezerwacje r, Pokoje p  
+          WHERE p.numer=r.numer
+          group by p.numer)
+group by p.numer
+order by 2 desc
+";
+
+            $wyrazenie = oci_parse($polaczenie, $zapytanie);
+            if (!oci_execute($wyrazenie)) {
+                $err = oci_error($wyrazenie);
+                trigger_error('Zapytanie zakoĹ„czyĹ‚o siÄ™ niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
+            }
+            $from = 1; //{5}
+            $i = 0;
+            //echo "tab count " . count($tab) . "<br>";
+            while ($rekord = oci_fetch_array($wyrazenie, OCI_ASSOC)) {
+                echo "<tr><td>" . $from . "</td><td>" .
+                $rekord['NUMER'] . "</td><td>" . (($i < count($tab) ) ? ($rekord['SUMA'] * $tab[$i] ) : $rekord['SUMA'] ) . " zl</td>";
+                $from++;
+                $i++;
+            }
+            oci_close($polaczenie);
+        }
         ?>
 
 
@@ -197,13 +170,18 @@ require_once("./googlecharttools/ClassLoader.class.php");
         <div class="wrap">
             <?php include('menu.php'); ?>
             <div id = "TRESC">
-                <h2 class="underline extraBottomMargin">Aktualna lista gości (<?php echo(date("d-m-Y | G:i:s", time())); ?>)</h2>
-                <?php
-                showActualGuests();
-//echo $manager->getHtmlHeaderCode();
-                ?>
-                <!--<h1>Liczba gości w poprzednich dniach</h1>-->
-                <?php //echo $pieChart->getHtmlContainer();          ?>
+                <h1 class="underline extraBottomMargin">Zestawienia finansowe ( <?php echo(date("d-m-Y | G:i:s", time())); ?>)</h1>
+                <h2 class="underline extraBottomMargin">Sumaryczne przychody pokoi</h2>
+                <table id="table-6">
+                    <thead>
+                    <th>No.</th>
+                    <th>Pok�j</th>
+                    <th>Kwota</th>
+                    </thead>
+                    <tbody>
+                        <?php showAllRoomsIncome(); ?>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div id="footer">Panel Administracyjny</div>

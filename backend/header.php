@@ -3,11 +3,11 @@ session_start();
 
 function showLoginForm() {
     ?>
-    <form action = "index.php" method="POST">
-        Nazwa klienta: <input name="login" type="text" /> Has³o: <input name="haslo" type="password" />
-        <input type = "submit" class = "button gradient_gold" value = "Zaloguj siê" />
-        <a href = "register.php" class = "button gradient_silver">Rejestracja</a>
-    </form>
+    <!--    <form action = "index.php" method="POST">
+            Nazwa klienta: <input name="login" type="text" /> Has³o: <input name="haslo" type="password" />
+            <input type = "submit" class = "button gradient_gold" value = "Zaloguj siê" />
+            <a href = "register.php" class = "button gradient_silver">Rejestracja</a>
+        </form>-->
     <?php
 }
 
@@ -17,7 +17,7 @@ function czyIstnieje($login, $haslo) {
     echo 'loginz forma ' . $login . "<br>";
     echo 'haslo z forma ' . $haslo . "<br>";
 
-    $zapytanie = "select id,login, haslo from goscie where login='" . trim($login) . "'";
+    $zapytanie = "select id,login, haslo from obsluga where login='" . trim($login) . "'";
     $polaczenie = oci_connect("hotel", "hotel", "localhost/XE");
     $wyrazenie = oci_parse($polaczenie, $zapytanie);
     if (!oci_execute($wyrazenie)) {
@@ -83,7 +83,7 @@ function czyIstnieje($login, $haslo) {
                     showLoginForm();
                 }
             } else {
-                echo '<div id="loginButtons">';
+                //echo '<div id="loginButtons">';
                 showLoginForm();
             }
         }

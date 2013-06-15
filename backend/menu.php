@@ -1,6 +1,6 @@
 <div id="MENU">
     <ul>
-        <li><a href="admin_panel.php" style="">PANEL ADMINISTRACYJNY</a></li>
+        <li><a href="admin_panel.php" style="">PANEL<br> OBS£UGI HOTELU</a></li>
         <li><a href="guest_list.php" >Lista go≈õci</a></li>
         <li><a href="rooms_occupancy.php" >Wykorzystanie pokoi</a></li>
         <li><a href="ballance_sheet.php" >Zestawienia finansowe</a></li>

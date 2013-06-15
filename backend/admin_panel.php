@@ -123,7 +123,7 @@ require_once("./googlecharttools/ClassLoader.class.php");
         ?>
         <div class="wrap">
             <div id="top">
-                <?php include('menu.php'); ?>
+                <?php include('menu_admin.php'); ?>
 
                 <div id="TRESC">
                     <?php echo $manager->getHtmlHeaderCode(); ?>
