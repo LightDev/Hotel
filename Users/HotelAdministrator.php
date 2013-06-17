@@ -1,8 +1,12 @@
 <?php
 
-class HotelService extends User {
+class HotelAdministrator extends User {
 
     public function __construct() {
+        
+    }
+
+    public function addRoom() {
         
     }
 

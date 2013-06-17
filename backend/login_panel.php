@@ -1,6 +1,6 @@
 <html>
     <head>
-        <meta http-equiv = "Content-Type" content = "text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
         <link rel="stylesheet" href="../css/main_css.css" />
         <style>
@@ -56,11 +56,11 @@
                     <table>
                         <tr>
                             <td>Nazwa użytkownika:</td>
-                            <td><input name="login" type="text" /></td>
+                            <td><input name="login1" type="text" /></td>
                         </tr>
                         <tr>
                             <td>Hasło:</td>
-                            <td><input name="haslo" type="password" /></td>
+                            <td><input name="haslo1" type="password" /></td>
                         </tr>
                         <tr>
                             <td>Typ:</td>

@@ -1,6 +1,8 @@
 <html xmlns = "http://www.w3.org/1999/xhtml">
     <head>
 
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
         <?php
         include('createHead.php');
         createHead("H&R - Rezerwacja pokoi");
@@ -20,30 +22,31 @@
                 $err = oci_error($wyrazenie);
                 trigger_error('Zapytanie zakończyło się niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
             }
+            $i = 0;
             while ($rekord = oci_fetch_array($wyrazenie, OCI_ASSOC)) {
-                echo '<div style="border-bottom:1px solid #eee;">';
-                echo '<h2 class="underline">Pokój nr: ' . $rekord['NUMER'] . '</h2>';
+                echo '<div class="reservation_details">';
                 echo '<table>';
-                echo '<tr><td>Ilość osób: ' . $rekord['ILU_OSOBOWY'] . '</td>';
-                echo ($rekord['LAZIENKA'] == 'Y') ? '<td>Łazienka: ' . 'Tak' : 'Łazienka: ' . 'Nie' . '</td>';
-                echo '<td>CENA: ' . $rekord['CENA'] . ' zł' . '</td>';
-//                if ($_SESSION['user'] > 0) {
-//                    echo '<td><a href = "reservation_summary.php?roomId=' . $rekord['NUMER'] . '" class = "button gradient_gold">Dokonaj rezerwacji</a></td>';
-//                } else {
-//                    echo '<td><a href = "register.php" class = "button gradient_gold">Dokonaj rezerwacji</a></td>';
-//                }
-                echo '</tr></table>';
+                echo '<tr><h2 class="underline">Pokój nr: ' . $rekord['NUMER'] . '</h2></tr>';
+                echo '<tr><td>' . (($i % 2 == 0) ? '<img src="img/YaBooking.jpg" />' : '<img src="img/room.jpg" />') . '</td>';
+                echo '<td ><span style = "font-weight:bold;font-size:14px;">Opis</span><br>Ilość osób: ' . $rekord['ILU_OSOBOWY'] . '<br>';
+                echo ($rekord['LAZIENKA'] == 'Y') ? 'Łazienka: ' . 'Tak' : 'Łazienka: ' . 'Nie' . '';
+                echo '</td><td><span style = "font-size:18px;">CENA: ' . $rekord['CENA'] . ' zł</span>' . '</td>';
+
+                echo '<td>';
+//                echo '<div id = "" style = "">';
                 if ($_SESSION['user'] > 0) {
-                    echo '<div id="" style="width:200px;float:right;">
-                        <form method="POST" action= "reservation_summary.php?roomId=' . $rekord['NUMER'] . '">
-                            <input type="submit" class = "button gradient_gold" value="Sprawdź szczegóły" />
-                            
-                                        </form>
-                          </div>';
+                    echo '<form method = "POST" action = "reservation_summary.php?roomId=' . $rekord['NUMER'] . '">
+                <input type = "submit" class = "button gradient_gold" value = "Sprawdź szczegóły" /></form>';
                 } else {
                     echo '<a href = "loginOrRegister.php" class = "button gradient_gold">Sprawdź szczegóły</a>';
                 }
+//                echo '</td></tr>';
+                echo '</td>';
+                echo '</tr>';
+                echo '</table>';
                 echo '</div>';
+                $i++;
+                //echo '</div></div>';
             }
             oci_close($polaczenie);
         }
@@ -59,12 +62,12 @@
                 ?>  <form action="reservation_results.php" method="POST">
                     Ilość pokoi:<br />
 
-                    <input type="radio" name="roomCount" value="1" <?php echo ($pok[0] == '1') ? 'checked="checked"' : "" ?> />1 pokój<br />
-                    <input type="radio" name="roomCount" value="2" <?php echo ($pok[0] == '2') ? 'checked="checked"' : "" ?> />2 pokoje<br />
-                    <input type="radio" name="roomCount" value="3" <?php echo ($pok[0] == '3') ? 'checked="checked"' : "" ?> />3 pokoje<br /><br />
+                    <input type="radio" name="roomCount" value="1" <?php echo ($pok[0] == '1') ? 'checked = "checked"' : "" ?> />1 pokój<br />
+                    <input type="radio" name="roomCount" value="2" <?php echo ($pok[0] == '2') ? 'checked = "checked"' : "" ?> />2 pokoje<br />
+                    <input type="radio" name="roomCount" value="3" <?php echo ($pok[0] == '3') ? 'checked = "checked"' : "" ?> />3 pokoje<br /><br />
                     Łazienka:<br />
-                    <input type="radio" name="lazienka" value="Y" <?php echo ($laz == 'Y') ? 'checked="checked"' : "" ?> />Tak<br />
-                    <input type="radio" name="lazienka" value="N" <?php echo ($laz == 'N') ? 'checked="checked"' : "" ?> />Nie<br />
+                    <input type="radio" name="lazienka" value="Y" <?php echo ($laz == 'Y') ? 'checked = "checked"' : "" ?> />Tak<br />
+                    <input type="radio" name="lazienka" value="N" <?php echo ($laz == 'N') ? 'checked = "checked"' : "" ?> />Nie<br />
 
                     <input type="submit"  value="Filtruj wyniki"  /><br />
                 </form>
@@ -84,46 +87,40 @@
                     $dateFrom = $_SESSION['dateFromHidden'];
                     $dateTo = $_SESSION['dateToHidden'];
                 }
-                //echo "dateToHidden" . $_POST['dateToHidden'] . "<br>";
-                //echo "dateToHiddenSESSION" . $_SESSION['dateToHidden'] . "<br>";
-                //echo $dateFrom . "<br>";
+//                echo "dateToHidden" . $_POST['dateToHidden'] . "<br>";
+//                echo "dateToHiddenSESSION" . $_SESSION['dateToHidden'] . "<br>";
+//                echo $dateFrom . "<br>";
+//                echo "dateFROMHiddenSESSION" . $_SESSION['dateFromHidden'] . "<br>";
 
                 $roomCount = $_POST['roomCount'];
                 //echo "roomCount" . $roomCount . "<br>";
                 $lazienka = $_POST['lazienka'];
                 //echo "lazienka " . $lazienka . "<br>";
-                //$lazienka = (($lazienka == "Y") ? 'Y' : 'N');
+                ///$lazienka = (($lazienka == "Y") ? 'Y' : 'N');
                 //echo "lazienka " . $lazienka . "<br>";
 
-                $zapytanie = "SELECT * FROM Rezerwacje r JOIN Pokoje p ON(r.numer=p.numer) 
-                    WHERE (od_kiedy>to_date('" . $dateFrom . "','yyyy-mm-dd') AND od_kiedy>to_date('" . $dateTo . "','yyyy-mm-dd') OR
-                        do_kiedy<to_date('" . $dateFrom . "','yyyy-mm-dd') AND do_kiedy<to_date('" . $dateTo . "','yyyy-mm-dd'))
-                 ";
                 $zapytanie = "SELECT distinct p.numer,p.ilu_osobowy,p.cena,p.lazienka,od_kiedy,do_kiedy 
 FROM Rezerwacje r, Pokoje p  
-WHERE (p.numer=r.numer(+))
-MINUS
+WHERE (p.numer=r.numer(+)) and lazienka='{$lazienka}' and ilu_osobowy={$roomCount[0]} 
+MINUS 
 SELECT distinct p.numer,p.ilu_osobowy,p.cena,p.lazienka,od_kiedy,do_kiedy  
 FROM Rezerwacje r JOIN Pokoje p ON(r.numer=p.numer) 
 WHERE 
-/*sysdate >od_kiedy */
-sysdate > od_kiedy and sysdate < do_kiedy
-
-MINUS
+sysdate > od_kiedy and sysdate < do_kiedy 
+MINUS 
 SELECT distinct p.numer,p.ilu_osobowy,p.cena,p.lazienka,od_kiedy,do_kiedy  
 FROM Rezerwacje r JOIN Pokoje p ON(r.numer=p.numer) 
 WHERE 
-r.od_kiedy  between to_date('13/06/14','yy/mm/dd') and to_date('13/06/17','yy/mm/dd') or
- r.do_kiedy  between to_date('13/06/14','yy/mm/dd') and to_date('13/06/17','yy/mm/dd')
-order by 1; 
-";
-
-                //var_dump($zapytanie);
-                if (PHP_Helper::getCount($zapytanie) == 0)
-                    echo 'Niestety wszystkie pokoje są zajęte w danym terminie.';
-                else {
-                    showAvailableRooms($zapytanie, $dateFrom, $dateTo);
-                }
+r.od_kiedy  between to_date(' {$dateFrom}','yyyy/mm/dd') and to_date(' {$dateTo}','yyyy/mm/dd') or 
+ r.do_kiedy  between to_date(' {$dateFrom}','yyyy/mm/dd') and to_date(' {$dateTo}','yyyy/mm/dd')
+order by 1";
+//
+                // var_dump($zapytanie);
+//                if (PHP_Helper::getCount($zapytanie) == 0)
+//                    echo 'Niestety wszystkie pokoje są zajęte w danym terminie.';
+//                else {
+                showAvailableRooms($zapytanie, $dateFrom, $dateTo);
+//                }
                 //}
                 ?>
             </div>

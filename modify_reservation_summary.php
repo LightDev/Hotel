@@ -1,6 +1,8 @@
 <html xmlns = "http://www.w3.org/1999/xhtml">
     <head>
 
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
         <?php
         include('createHead.php');
         createHead("H&R - Rezerwacja pokoi");
@@ -11,7 +13,7 @@
             $wyrazenie = oci_parse($polaczenie, $zapytanie);
             if (!oci_execute($wyrazenie)) {
                 $err = oci_error($wyrazenie);
-                trigger_error('Zapytanie zako≈?czy≈?o siƒ? niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
+                trigger_error('Zapytanie zakoƒπ?czyƒπ?o si√Ñ? niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
             }
             $rowsCount = PHP_Helper::getCount($zapytanie);
             if ($rowsCount == 0) {
@@ -24,7 +26,7 @@
                 $wyrazenie = oci_parse($polaczenie, $zapytanie);
                 if (!oci_execute($wyrazenie)) {
                     $err = oci_error($wyrazenie);
-                    trigger_error('Zapytanie zako≈?czy≈?o siƒ? niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
+                    trigger_error('Zapytanie zakoƒπ?czyƒπ?o si√Ñ? niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
                 }
                 oci_close($polaczenie);
             }
@@ -46,7 +48,7 @@
         <div class="wrap">
             <?php include('user_menu.php'); ?>
             <div id="reservation_result" >
-                <h1 class="ok_text">Modyfikacja rezerwacji przebiegla pomy∂lnie</h1>
+                <h1 class="ok_text">Modyfikacja rezerwacji przebiegla pomy≈õlnie</h1>
                 <br />
                 <?php modifyReservation($_GET['id'], $_POST['numer'], $_POST['od'], $_POST['do']); ?>
 

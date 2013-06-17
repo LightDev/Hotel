@@ -1,6 +1,8 @@
 <html xmlns = "http://www.w3.org/1999/xhtml">
     <head>
 
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
         <?php
         include('createHead.php');
         createHead("H&R - Rezerwacja pokoi");
@@ -8,7 +10,7 @@
         function availableRooms($dateFrom, $dateTo) {
             echo $dateFrom . "<br>";
             echo $dateTo;
-            $zapytanie = "SELECT distinct p.numer,od_kiedy,do_kiedy    FROM Rezerwacje r JOIN Pokoje p ON(r.numer=p.numer)";
+            $zapytanie = "SELECT distinct p.numer,to_char(od_kiedy,'dd/mm/yyyy') od, to_char(do_kiedy,'dd/mm/yyyy') do    FROM Rezerwacje r JOIN Pokoje p ON(r.numer=p.numer)";
 //                    WHERE od_kiedy>to_date('" . $dateFrom . "','yy-mm-dd') AND od_kiedy>to_date('" . $dateTo . "','yy-mm-dd')
 //                        OR
 //                        do_kiedy<to_date('" . $dateFrom . "','yy-mm-dd') AND do_kiedy<to_date('" . $dateTo . "','yy-mm-dd') order by 1";
@@ -17,7 +19,7 @@
             $wyrazenie = oci_parse($polaczenie, $zapytanie);
             if (!oci_execute($wyrazenie)) {
                 $err = oci_error($wyrazenie);
-                trigger_error('Zapytanie zakoñczy³o siê niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
+                trigger_error('Zapytanie zakoÅ„czyÅ‚o siÄ™ niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
             }
             echo "lol1";
             while ($rekord = oci_fetch_array($wyrazenie, OCI_ASSOC)) {
@@ -32,7 +34,7 @@
         }
 
         function showActualReservation($id) {
-            $zapytanie = "SELECT numer_rezerwacji,imie, nazwisko, r.numer, od_kiedy, do_kiedy 
+            $zapytanie = "SELECT numer_rezerwacji,imie, nazwisko, r.numer, to_char(od_kiedy,'dd/mm/yyyy') od, to_char(do_kiedy,'dd/mm/yyyy')   do 
                           FROM Pokoje p  JOIN Rezerwacje r ON (p.numer=r.numer) JOIN Goscie g ON (r.id_goscia=g.id)
                           WHERE (od_kiedy>=TRUNC(SYSDATE-1)) and id_goscia={$_SESSION['user']} AND numer_rezerwacji=" . $id;
 
@@ -40,7 +42,7 @@
             $wyrazenie = oci_parse($polaczenie, $zapytanie);
             if (!oci_execute($wyrazenie)) {
                 $err = oci_error($wyrazenie);
-                trigger_error('Zapytanie zakoÅ?czyÅ?o siÄ? niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
+                trigger_error('Zapytanie zakoÄ¹?czyÄ¹?o siÃ„? niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
             }
             $rowsCount = PHP_Helper::getCount($zapytanie);
 //            $rowsCount = oci_fetch($wyrazenie);
@@ -59,11 +61,11 @@
                         while ($rekord = oci_fetch_array($wyrazenie, OCI_ASSOC)) {
                             // $_POST['reservation_id'] = $rekord["NUMER_REZERWACJI"];
                             echo "<tr>
-                               <tr> <td>Pokój:</td>        <td><select name=\"room\">";
+                               <tr> <td>PokÃ³j:</td>        <td><select name=\"room\">";
                             availableRooms($rekord['OD_KIEDY'], $rekord['DO_KIEDY']);
                             echo "</select></td></tr>
-                                <tr><td>Od:</td>            <td>" . $rekord['OD_KIEDY'] . "</td></tr>
-                                <tr><td>Do:</td>                <td>" . $rekord['DO_KIEDY'] . "</td></tr>
+                                <tr><td>Od:</td>            <td>" . $rekord['OD'] . "</td></tr>
+                                <tr><td>Do:</td>                <td>" . $rekord['DO'] . "</td></tr>
                             <tr><td><a href=\"modify_reservation_summary.php\" class=\"button gradient_gold\">Modyfikuj</a></td></tr></tr>";
                             $from++;
                         }

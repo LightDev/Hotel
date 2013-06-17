@@ -1,15 +1,6 @@
-<!doctype html>
-<?php
-/*
-  1. DONE Nastepuje autom wylogowanie jesli zmodyfikujemy adres dodajac np ? lub #
-  2.      Nalezy zabezpieczyc kalendarze aby nie mozna bylo zaznaczyc daty wstecz
-  3.      Procedura registerUser w pakiecie hotel
-  4.      Filtrowanie wyboru pokoju
-  5.      Zabezpieczyc anulowanie rezerwacji
- */
-?>
 <html xmlns = "http://www.w3.org/1999/xhtml">
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <?php
         include('createHead.php');
         createHead("Hotel & Restaurant");
@@ -52,7 +43,7 @@
                         </div>
                         <div class="panel" style="width: 400px;">
                             <h2 class="underline">Podaj czas pobytu</h2>
-                            <p>Od:&nbsp;<input type="text" name="dateFrom" id="dateFrom" class="date_picker" />&nbsp;&nbsp;&nbsp;Do:&nbsp;
+                            <p>Od:&#160;<input type="text" name="dateFrom" id="dateFrom" class="date_picker" />&#160;&#160;&#160;Do:&#160;
                                 <input type="text" name="dateTo" id="dateTo" class="date_picker" /></p>
                             <p class="circle">2</p>
                         </div>

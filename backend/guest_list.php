@@ -1,8 +1,8 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
     <head>
-        <!--<meta http-equiv = "Content-Type" content = "text/html; charset=iso8852-2">-->
-        <meta http-equiv = "Content-Type" content = "text/html; charset=UTF-8">
+        <!--        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-2">-->
+        <!--<meta http-equiv = "Content-Type" content = "text/html; charset=UTF-8">-->
 
         <?php
         include('../createHead.php');
@@ -80,10 +80,10 @@ require_once("./googlecharttools/ClassLoader.class.php");
         function showActualGuests($od, $do) {
             $zapytanie = "SELECT imie, nazwisko,r.numer,zaplata,klucz,to_char(od_kiedy,'dd/mm/yyyy') od,to_char(do_kiedy,'dd/mm/yyyy') do
                 FROM Pokoje p  JOIN Rezerwacje r ON (p.numer=r.numer) JOIN Goscie g ON (r.id_goscia=g.id)
-WHERE od_kiedy<=to_date('{$od}','yy-mm-dd') AND do_kiedy>=to_date('{$do}','yy-mm-dd')
+WHERE od_kiedy<=to_date({$od},'yy-mm-dd') AND do_kiedy>=to_date({$do},'yy-mm-dd')
                             or
-                            (r.od_kiedy  between to_date('{$od}','yy/mm/dd') and to_date('{$do}','yy/mm/dd')) or
-                            ( r.do_kiedy  between to_date('{$od}','yy/mm/dd') and to_date('{$do}','yy/mm/dd'))                                
+                            (r.od_kiedy  between to_date({$od},'yy/mm/dd') and to_date({$do},'yy/mm/dd')) or
+                            ( r.do_kiedy  between to_date({$od},'yy/mm/dd') and to_date({$do},'yy/mm/dd'))                                
                          order by 3";
 
 //WHERE SYSDATE between od_kiedy and do_kiedy";
@@ -92,18 +92,18 @@ WHERE od_kiedy<=to_date('{$od}','yy-mm-dd') AND do_kiedy>=to_date('{$do}','yy-mm
             $wyrazenie = oci_parse($polaczenie, $zapytanie);
             if (!oci_execute($wyrazenie)) {
                 $err = oci_error($wyrazenie);
-                trigger_error('Zapytanie zakoÅ?czyÅ?o siÄ? niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
+                trigger_error('Zapytanie zakoï¿½?czyï¿½?o siï¿½? niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
             }
             ?>
             <table id="table-6" >
                 <thead>
                 <th>No.</th>
-                <th>Imiê</th>
+                <th>ImiÄ™</th>
                 <th>Nazwisko</th>
                 <th>Od</th>
                 <th>Do</th>
-                <th>Pokój</th>
-                <th>Zap³acono</th>
+                <th>PokÃ³j</th>
+                <th>ZapÅ‚acono</th>
                 <th>Klucz</th>
             </thead>
             <tbody>
@@ -116,10 +116,10 @@ WHERE od_kiedy<=to_date('{$od}','yy-mm-dd') AND do_kiedy>=to_date('{$do}','yy-mm
                         <td>" . $rekord['IMIE'] . "</td>
                         <td>" . $rekord['NAZWISKO'] . "</td>
                         <td>" . $rekord['OD'] . "</td>
-                        <td>" . $rekord['DO'] . "</td>.
-                        <td>" . $rekord['NUMER'] . "</td>.
-                        <td>" . ($rekord['ZAPLATA'] == 'Y' ? 'Tak' : 'Nie') . "</td>.
-                        <td>" . ($rekord['KLUCZ'] == 'Y' ? 'Tak' : 'Nie') . "</td>";
+                        <td>" . $rekord['DO'] . "</td>
+                        <td>" . $rekord['NUMER'] . "</td>
+                        <td>" . ($rekord['ZAPLATA'] == 'Y' ? 'Tak' : 'Nie') . "</td>
+                        <td>" . ($rekord['KLUCZ'] == 'Y' ? 'Tak' : 'Nie') . "</td></tr>";
                     $from++;
                 }
                 //$rowsCount = oci_num_rows($wyrazenie);
@@ -129,23 +129,23 @@ WHERE od_kiedy<=to_date('{$od}','yy-mm-dd') AND do_kiedy>=to_date('{$do}','yy-mm
         </table>
     <?php } ?>
     <?php
-    include('../header.php');
+    include('header.php');
 //include('../navigation.php');
     ?>
     <div class="wrap">
         <?php include('menu.php'); ?>
         <div id = "TRESC">
-            <h1 class="underline extraBottomMargin">Aktualna lista go¶ci (<?php echo(date("d-m-Y | G:i:s", time())); ?>)</h1>
+            <h1 class="underline extraBottomMargin">Aktualna lista goÅ›ci (<?php echo(date("d-m-Y | G:i:s", time())); ?>)</h1>
             <?php
             $od = "SYSDATE";
             $do = "SYSDATE";
-            $od = '13-06-14';
-            $do = '13-06-14';
+            //$od = '13-06-14';
+            //$do = '13-06-14';
 //          
             showActualGuests($od, $do);
             //echo $manager->getHtmlHeaderCode();
             ?>
-            <!--<h1>Liczba go¶ci w poprzednich dniach</h1>-->
+            <!--<h1>Liczba goï¿½ci w poprzednich dniach</h1>-->
             <?php //echo $pieChart->getHtmlContainer();       ?>
         </div>
     </div>

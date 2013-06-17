@@ -358,3 +358,41 @@ input.date_picker {
         -moz-border-radius: 0px 0px 7px 7px;
         border-radius: 0px 0px 7px 7px;*/
 }
+.reservation_details{
+    border-bottom:1px solid #eee; 
+    /*    float: left;*/
+
+}
+/*.reservation_details h2{
+    float: left;
+}*/
+.reservation_details img{
+    border-bottom:1px solid #eee; 
+    width:  120px;
+    height:  90px;
+    /*display: table-cell;*/
+    float: left;
+}
+.reservation_details a{
+    float: left;
+    /*display: inline-table;*/
+}
+.reservation_details td, .reservation_details tr, img  { padding: 0px; margin: 0px; border: none; float: left;}
+.reservation_details table { border-collapse: collapse; width: 100%; }
+td{ vertical-align: middle; 
+    padding-right: 10px;
+    border-spacing:10px;width: 35%
+}
+
+table img{
+    width:  180px !important;
+    height:  125px !important;
+    /*display: table-cell;*/
+    float: left;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+table tr td a{
+    /*float: left;*/
+}

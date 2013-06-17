@@ -1,12 +1,13 @@
 <?php
 
-$login = $_POST['login'];
-$haslo = $_POST['haslo'];
+session_start();
+$login = $_POST['login1'];
+$haslo = $_POST['haslo1'];
 $typ = $_POST['typ'];
-$_SESSION['login'] = $login;
-$_SESSION['haslo'] = $haslo;
+$_SESSION['login1'] = $login;
+$_SESSION['haslo1'] = $haslo;
 $_SESSION['typ'] = $typ;
-
+echo $_SESSION['login1'];
 echo $typ;
 if ($typ == 'worker') {
     header('Location: guest_list.php');

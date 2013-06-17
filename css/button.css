@@ -41,4 +41,5 @@ input.button{
 .button, .button span, input span {
     -moz-border-radius: .3em;
     border-radius: .3em;
+    color: 222;
 }

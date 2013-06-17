@@ -1,4 +1,5 @@
 .gradient_gold{
+    color: #222 !important;
     background: #fefcea; /* Old browsers */
     background: -moz-linear-gradient(top,  #fefcea 0%, #f1da36 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fefcea), color-stop(100%,#f1da36)); /* Chrome,Safari4+ */
@@ -23,6 +24,8 @@
 
 }
 .gradient_silver{
+    color: #222 !important;
+
     background: rgb(254,255,232); /* Old browsers */
     background: -moz-linear-gradient(top,  rgba(254,255,232,1) 0%, rgba(214,219,191,1) 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(254,255,232,1)), color-stop(100%,rgba(214,219,191,1))); /* Chrome,Safari4+ */

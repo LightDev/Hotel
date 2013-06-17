@@ -1,6 +1,8 @@
 <html xmlns = "http://www.w3.org/1999/xhtml">
     <head>
 
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
         <?php
         include('PHP_Helper.php');
         include('createHead.php');
@@ -49,7 +51,7 @@
                     <a href="#">Najczęściej zadawane pytania</a><span class="splitter">&nbsp;|&nbsp;</span>
                     <a href="#">Regulamin rezerwacji</a><span class="splitter">&nbsp;|&nbsp;</span>
                     <a href="#">Kontakt</a></p>
-                <p style="width: 200px;float: right">Webdesign: 8SOFT &copy; 2013</p>
+                <p style="width: 200px;float: right">Webdesign: 8SOFT © 2013</p>
             </div>
         </div>
 

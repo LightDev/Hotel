@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
     <head>
-        <!--<meta http-equiv = "Content-Type" content = "text/html; charset=iso8852-2">-->
+        <!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8">-->
 
         <?php
         include('../createHead.php');
@@ -45,7 +45,7 @@
         </table>
     <?php } ?>
     <?php
-    include('../header.php');
+    include('header.php');
 //include('../navigation.php');
     ?>
     <div class="wrap">
@@ -53,8 +53,10 @@
         <div id = "TRESC">
             <h1 class="underline extraBottomMargin">Zajêto¶æ pokoi (<?php echo(date("d-m-Y | G:i:s", time())); ?>)</h1>
             <?php
-            $od = '2013-06-14';
-            $do = '2013-06-17';
+//            $od = '2013-06-14';
+//            $do = '2013-06-17';
+            $od = 'SYSDATE';
+            $do = 'SYSDATE';
 //            $zapytanie = "SELECT r.numer suma FROM Rezerwacje r JOIN Pokoje p ON(r.numer=p.numer) 
 //                WHERE od_kiedy>to_date('{$od}','yyyy-mm-dd') 
 //                AND   do_kiedy<to_date('{$do}','yyyy-mm-dd')";
@@ -63,10 +65,10 @@
                           where numer not in (
                             SELECT p.numer
                             FROM Rezerwacje r JOIN Pokoje p ON(r.numer=p.numer) 
-                            WHERE od_kiedy<=to_date('{$od}','yy-mm-dd') AND do_kiedy>=to_date('{$do}','yy-mm-dd')
+                            WHERE od_kiedy<=to_date({$od},'yy-mm-dd') AND do_kiedy>=to_date({$do},'yy-mm-dd')
                             or
-                            (r.od_kiedy  between to_date('{$od}','yy/mm/dd') and to_date('{$do}','yy/mm/dd')) or
-                            ( r.do_kiedy  between to_date('{$od}','yy/mm/dd') and to_date('{$do}','yy/mm/dd')))
+                            (r.od_kiedy  between to_date({$od},'yy/mm/dd') and to_date({$do},'yy/mm/dd')) or
+                            ( r.do_kiedy  between to_date({$od},'yy/mm/dd') and to_date({$do},'yy/mm/dd')))
                          order by 1";
             echo "<br /><h1 class=\"underline\">Wolne pokoje</h1>";
             echo "<br />";
@@ -77,10 +79,10 @@
 //            AND   do_kiedy>=to_date('{$do}','yyyy-mm-dd')";
             $zapytanie = "SELECT r.numer 
  FROM Rezerwacje r JOIN Pokoje p ON(r.numer=p.numer) 
- WHERE od_kiedy<=to_date('{$od}','yy-mm-dd') AND do_kiedy>=to_date('{$do}','yy-mm-dd')
+ WHERE od_kiedy<=to_date({$od},'yy-mm-dd') AND do_kiedy>=to_date({$do},'yy-mm-dd')
 or
-(r.od_kiedy  between to_date('{$od}','yy/mm/dd') and to_date('{$do}','yy/mm/dd')) or
-( r.do_kiedy  between to_date('{$od}','yy/mm/dd') and to_date('{$do}','yy/mm/dd'))
+(r.od_kiedy  between to_date({$od},'yy/mm/dd') and to_date({$do},'yy/mm/dd')) or
+( r.do_kiedy  between to_date({$od},'yy/mm/dd') and to_date({$do},'yy/mm/dd'))
 order by 1";
             echo "<br /><h1 class=\"underline\">Zajete pokoje</h1>";
             echo "<br />";

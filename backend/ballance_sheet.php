@@ -1,6 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
     <head>
+        <!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8">-->
         <?php
         include('../createHead.php');
         createHead("Admin", "../");
@@ -74,7 +75,7 @@ require_once("./googlecharttools/ClassLoader.class.php");
         $manager->addChart($pieChart);
 
         function showIncomeRoom($roomId) {
-            //2a - zmienna nr - numer pokoju - przychód za pokoj
+            //2a - zmienna nr - numer pokoju - przychĂłd za pokoj
             'SELECT sum(cena) suma FROM Rezerwacje r JOIN Pokoje p ON(r.numer=p.numer) WHERE r.numer=\'' . $roomId . '\'';
         }
 
@@ -90,7 +91,7 @@ require_once("./googlecharttools/ClassLoader.class.php");
             $wyrazenie = oci_parse($polaczenie, $zapytanie);
             if (!oci_execute($wyrazenie)) {
                 $err = oci_error($wyrazenie);
-                trigger_error('Zapytanie zakoĹ„czyĹ‚o siÄ™ niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
+                trigger_error('Zapytanie zakoÄšâczyÄšâo siĂâ˘ niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
             }
             $from = 1; //{5}
 
@@ -118,7 +119,7 @@ require_once("./googlecharttools/ClassLoader.class.php");
             $wyrazenie = oci_parse($polaczenie, $zapytanie);
             if (!oci_execute($wyrazenie)) {
                 $err = oci_error($wyrazenie);
-                trigger_error('Zapytanie zakoĹ„czyĹ‚o siÄ™ niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
+                trigger_error('Zapytanie zakoÄšâczyÄšâo siĂâ˘ niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
             }
             $tab = array();
             $i = 0;
@@ -147,7 +148,7 @@ order by 2 desc
             $wyrazenie = oci_parse($polaczenie, $zapytanie);
             if (!oci_execute($wyrazenie)) {
                 $err = oci_error($wyrazenie);
-                trigger_error('Zapytanie zakoĹ„czyĹ‚o siÄ™ niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
+                trigger_error('Zapytanie zakoÄšâczyÄšâo siĂâ˘ niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
             }
             $from = 1; //{5}
             $i = 0;
@@ -164,7 +165,7 @@ order by 2 desc
 
 
         <?php
-        include('../header.php');
+        include('header.php');
 //include('../navigation.php');
         ?>
         <div class="wrap">
@@ -175,7 +176,7 @@ order by 2 desc
                 <table id="table-6">
                     <thead>
                     <th>No.</th>
-                    <th>Pok�j</th>
+                    <th>Pokój</th>
                     <th>Kwota</th>
                     </thead>
                     <tbody>

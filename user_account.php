@@ -1,20 +1,33 @@
 <html xmlns = "http://www.w3.org/1999/xhtml">
     <head>
 
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
         <?php
         include('createHead.php');
         createHead("H&R - Rezerwacja pokoi");
 
         function showActualReservations() {
-            $zapytanie = "SELECT imie, nazwisko, r.numer, od_kiedy, do_kiedy 
+//            $zapytanie = "SELECT imie, nazwisko, r.numer, od_kiedy, do_kiedy 
+//                          FROM Pokoje p  JOIN Rezerwacje r ON (p.numer=r.numer) JOIN Goscie g ON (r.id_goscia=g.id)
+//                          WHERE (od_kiedy>=TRUNC(SYSDATE-1)) and id_goscia='{$_SESSION['user']}'";
+
+            $zapytanie = "SELECT imie, nazwisko, r.numer, od_kiedy, do_kiedy, 'AKTYWNA' STATUS
                           FROM Pokoje p  JOIN Rezerwacje r ON (p.numer=r.numer) JOIN Goscie g ON (r.id_goscia=g.id)
-                          WHERE (od_kiedy>=TRUNC(SYSDATE-1)) and id_goscia='{$_SESSION['user']}'";
+                          WHERE (od_kiedy>=TRUNC(SYSDATE-1)) and id_goscia='1'
+                          and SYSDATE between od_kiedy-1 and do_kiedy+1
+                          UNION
+                         SELECT imie, nazwisko, r.numer, od_kiedy, do_kiedy, 'NIEAKTYWNA' STATUS
+                          FROM Pokoje p  JOIN Rezerwacje r ON (p.numer=r.numer) JOIN Goscie g ON (r.id_goscia=g.id)
+                          WHERE (od_kiedy>=TRUNC(SYSDATE-1)) and id_goscia='1'
+                          and SYSDATE not between od_kiedy-1 and do_kiedy+1
+                          order by 4";
 
             $polaczenie = oci_connect("hotel", "hotel", "localhost/XE");
             $wyrazenie = oci_parse($polaczenie, $zapytanie);
             if (!oci_execute($wyrazenie)) {
                 $err = oci_error($wyrazenie);
-                trigger_error('Zapytanie zakoÅ?czyÅ?o siÄ? niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
+                trigger_error('Zapytanie zakoÄ¹?czyÄ¹?o siÃ„? niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
             }
             $rowsCount = PHP_Helper::getCount($zapytanie);
             if ($rowsCount == 0) {
@@ -24,11 +37,12 @@
                 <table id="table-6" >
                     <thead>
                         <th>No.</th>
-                        <th>Imiê</th>
+                        <th>ImiÄ™</th>
                         <th>Nazwisko</th>
-                        <th>Pokój</th>
+                        <th>PokÃ³j</th>
                         <th>Od</th>
                         <th>Do</th>
+                        <th>Status</th>
                         <!--<th>Akcja</th>-->
                     </thead>
                     <tbody>
@@ -36,9 +50,14 @@
                         $from = 1; //{5}
 
                         while ($rekord = oci_fetch_array($wyrazenie, OCI_ASSOC)) {
-                            echo "<tr><td>" . $from . "</td><td>" .
-                            $rekord['IMIE'] . "</td><td>" . $rekord['NAZWISKO'] . "</td><td>" . $rekord['NUMER'] . "</td><td>" . $rekord['OD_KIEDY'] . "</td>
-                                <td>" . $rekord['DO_KIEDY'] . "</td></tr>";
+                            echo "<tr>
+                                <td>" . $from . "</td>
+                                <td>" . $rekord['IMIE'] . "</td>
+                                <td>" . $rekord['NAZWISKO'] . "</td>
+                                <td>" . $rekord['NUMER'] . "</td>
+                                <td>" . $rekord['OD_KIEDY'] . "</td>
+                                <td>" . $rekord['DO_KIEDY'] . "</td>
+                                <td>" . (($rekord['STATUS'] == "AKTYWNA") ? '<span style="color:green;">' . $rekord['STATUS'] . '</span>' : '<span style="color:red;">' . $rekord['STATUS'] . '</span>') . "</td></tr>";
                             $from++;
                         }
                         //$rowsCount = oci_num_rows($wyrazenie);
@@ -66,7 +85,7 @@
         <div class="wrap">
             <?php include('user_menu.php'); ?>
             <div id="reservation_result" >
-                <h1 class="underline">Z³o¿one rezerwacje</h1>
+                <h1 class="underline">ZÅ‚oÅ¼one rezerwacje</h1>
                 <br />
                 <?php showActualReservations(); ?>
                 <br />

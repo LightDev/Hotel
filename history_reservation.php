@@ -1,12 +1,14 @@
 <html xmlns = "http://www.w3.org/1999/xhtml">
     <head>
 
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
         <?php
         include('createHead.php');
         createHead("H&R - Rezerwacja pokoi");
 
         function showOldReservations() {
-            $zapytanie = "SELECT r.numer,od_kiedy, do_kiedy  
+            $zapytanie = "SELECT r.numer,to_char(od_kiedy,'dd/mm/yyyy') od, to_char(do_kiedy,'dd/mm/yyyy')   do
                           FROM Pokoje p  JOIN Rezerwacje r ON (p.numer=r.numer) JOIN Goscie g ON (r.id_goscia=g.id) 
                           WHERE  (do_kiedy < SYSDATE-1) and id_goscia={$_SESSION['user']} ORDER BY 3 DESC";
 
@@ -14,13 +16,13 @@
             $wyrazenie = oci_parse($polaczenie, $zapytanie);
             if (!oci_execute($wyrazenie)) {
                 $err = oci_error($wyrazenie);
-                trigger_error('Zapytanie zakoÅ?czyÅ?o siÄ? niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
+                trigger_error('Zapytanie zakoÄ¹?czyÄ¹?o siÃ„? niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
             }
             ?>
             <table id="table-6" >
                 <thead>
                     <th>No.</th>
-                    <th>Pokój</th>
+                    <th>PokÃ³j</th>
                     <th>Od</th>
                     <th>Do</th>
                 </thead>
@@ -29,7 +31,7 @@
                     $from = 1; //{5}
 
                     while ($rekord = oci_fetch_array($wyrazenie, OCI_ASSOC)) {
-                        echo "<tr><td>" . $from . "</td><td>" . $rekord['NUMER'] . "</td><td>" . $rekord['OD_KIEDY'] . "</td><td>" . $rekord['DO_KIEDY'] . "</td></tr>";
+                        echo "<tr><td>" . $from . "</td><td>" . $rekord['NUMER'] . "</td><td>" . $rekord['OD'] . "</td><td>" . $rekord['DO'] . "</td></tr>";
                         $from++;
                     }
                     //$rowsCount = oci_num_rows($wyrazenie);

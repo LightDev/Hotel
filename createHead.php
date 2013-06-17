@@ -1,8 +1,10 @@
 <?php
 
 function createHead($title, $relativePath = "") { ?>
-    <!--<meta http-equiv = "Content-Type" content = "text/html; charset=iso-8859-2">-->
+    <!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8">-->
     <meta http-equiv = "Content-Type" content = "text/html; charset=UTF-8">
+    <!--<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-2">-->
+
     <title><?php echo $title; ?></title>
     <link rel="shortcut icon" href="<?php echo $relativePath; ?>img/icon_032.png">
     <script src = "http://code.jquery.com/jquery-1.9.1.js"></script>
