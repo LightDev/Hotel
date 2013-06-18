@@ -18,6 +18,8 @@
                 trigger_error('Zapytanie zakoĹ?czyĹ?o siÄ? niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
             }
             ?>
+            <!--        <form action="room_delete_summary.php" method="POST">-->
+
         <table id="table-6" >
             <thead>
             <th>No.</th>
@@ -39,13 +41,14 @@
                         <td>" . $rekord['ILU_OSOBOWY'] . "</td>
                         <td>" . ($rekord['LAZIENKA'] == 'Y' ? 'Tak' : 'Nie') . "</td>
                         <td>" . $rekord['CENA'] . "</td>
-<td><a href=\"modify_reservation_summary.php?id=" . $rekord["NUMER"] . "\" class=\"button gradient_silver\">Usuń</a></td></tr>";
+<td><a href=\"room_delete_summary.php?numer=" . $rekord['NUMER'] . "\" class=\"button gradient_silver\"  />Usuń</a></td></tr>";
                 $from++;
             }
             //$rowsCount = oci_num_rows($wyrazenie);
             oci_close($polaczenie);
             ?>
         </tbody>
+        <!--</form>-->
     </table>
 <?php } ?>
 </head>

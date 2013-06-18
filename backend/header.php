@@ -39,18 +39,6 @@ function czyIstnieje($login, $haslo) {
 <div id="header">
     <div class="wrap">
         <?php
-        if (!isset($_SESSION['inicjuj'])) {
-            session_regenerate_id();
-            $_SESSION['inicjuj'] = true;
-            $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
-        }
-
-
-        if ($_SESSION['ip'] != $_SERVER['REMOTE_ADDR']) {
-            die('Proba przejecia sesji udaremniona!');
-        } if (!isset($_SESSION['uzytkownik1'])) {
-            $_SESSION['uzytkownik1'] = 0;
-        }
         if ($_SESSION['uzytkownik1'] > 0) {
             echo //'<a href="#">Moje rezerwacje</a>
             '<div id="loginButtons" style="width:150px;">Witaj ' . $_SESSION['login1'] .

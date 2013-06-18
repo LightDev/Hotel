@@ -73,20 +73,29 @@
                 </form>
             </div>
             <div id="reservation_result" >
-                <h2 class="underline">Dostępne pokoje</h2>
                 <?php
                 include('PHP_Helper.php');
 
-                if (!isset($_SESSION['dateFromHidden']) && !isset($_SESSION['dateToHidden'])) {
-                    $_SESSION['dateFromHidden'] = $_POST['dateFromHidden'];
-                    $_SESSION['dateToHidden'] = $_POST['dateToHidden'];
+//                if (!isset($_SESSION['dateFromHidden']) && !isset($_SESSION['dateToHidden'])) {
+//                    $_SESSION['dateFromHidden'] = $_POST['dateFromHidden'];
+//                    $_SESSION['dateToHidden'] = $_POST['dateToHidden'];
+//                    $dateFrom = $_SESSION['dateFromHidden'];
+//                    $dateTo = $_SESSION['dateToHidden'];
+//                    //}
+//                } else {
+//                    $dateFrom = $_SESSION['dateFromHidden'];
+//                    $dateTo = $_SESSION['dateToHidden'];
+//                }
+                if (!(isset($_POST['dateFromHidden']) || isset($_POST['dateToHidden']))) {
                     $dateFrom = $_SESSION['dateFromHidden'];
                     $dateTo = $_SESSION['dateToHidden'];
-                    //}
                 } else {
-                    $dateFrom = $_SESSION['dateFromHidden'];
-                    $dateTo = $_SESSION['dateToHidden'];
+                    $dateFrom = $_POST['dateFromHidden'];
+                    $dateTo = $_POST['dateToHidden'];
+                    $_SESSION['dateFromHidden'] = $dateFrom;
+                    $_SESSION['dateToHidden'] = $dateTo;
                 }
+                echo '<h2 class="underline">Dostępne pokoje od ' . $dateFrom . ' do ' . $dateTo . '.</h2>';
 //                echo "dateToHidden" . $_POST['dateToHidden'] . "<br>";
 //                echo "dateToHiddenSESSION" . $_SESSION['dateToHidden'] . "<br>";
 //                echo $dateFrom . "<br>";
@@ -99,7 +108,7 @@
                 ///$lazienka = (($lazienka == "Y") ? 'Y' : 'N');
                 //echo "lazienka " . $lazienka . "<br>";
 
-                $zapytanie = "SELECT distinct p.numer,p.ilu_osobowy,p.cena,p.lazienka,od_kiedy,do_kiedy 
+                $zapytanie = "SELECT distinct p.numer,p.ilu_osobowy,p.cena,p.lazienka, od_kiedy,do_kiedy 
 FROM Rezerwacje r, Pokoje p  
 WHERE (p.numer=r.numer(+)) and lazienka='{$lazienka}' and ilu_osobowy={$roomCount[0]} 
 MINUS 

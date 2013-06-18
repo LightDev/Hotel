@@ -15,64 +15,12 @@
 use googlecharttools\model\Column;
 use googlecharttools\model\DataTable;
 use googlecharttools\model\Row;
-use googlecharttools\view\AreaChart;
-use googlecharttools\view\BarChart;
-use googlecharttools\view\BubbleChart;
-use googlecharttools\view\CandlestickChart;
 use googlecharttools\view\ColumnChart;
-use googlecharttools\view\ComboChart;
-use googlecharttools\view\Gauge;
-use googlecharttools\view\GeoChart;
-use googlecharttools\view\LineChart;
-use googlecharttools\view\PieChart;
-use googlecharttools\view\ScatterChart;
-use googlecharttools\view\SteppedAreaChart;
-use googlecharttools\view\Table;
-use googlecharttools\view\TreeMap;
 use googlecharttools\view\ChartManager;
-use googlecharttools\view\options\Axis;
-use googlecharttools\view\options\BackgroundColor;
-use googlecharttools\view\options\Bubble;
-use googlecharttools\view\options\ChartArea;
-use googlecharttools\view\options\ColorAxis;
-use googlecharttools\view\options\Legend;
-use googlecharttools\view\options\Series;
-use googlecharttools\view\options\TextStyle;
-use googlecharttools\view\options\Tooltip;
 
 require_once("./googlecharttools/ClassLoader.class.php");
+
         //include('googleChartsRequirements.php');
-        $activitiesData = new DataTable();
-        $activitiesData->addColumn(new Column(Column::TYPE_STRING, "t", "Task"));
-        $activitiesData->addColumn(new Column(Column::TYPE_NUMBER, "h", "Hours per Day"));
-
-        $rowWork = new Row();
-        $rowWork->addCell(new Cell("Work"))->addCell(new Cell(11));
-        ;
-        $activitiesData->addRow($rowWork);
-
-        $rowEat = new Row();
-        $rowEat->addCell(new Cell("Eat"))->addCell(new Cell(2));
-        $activitiesData->addRow($rowEat);
-
-        $rowCommute = new Row();
-        $rowCommute->addCell(new Cell("Commute"))->addCell(new Cell(2));
-        $activitiesData->addRow($rowCommute);
-
-        $rowWatch = new Row();
-        $rowWatch->addCell(new Cell("Watch TV"))->addCell(new Cell(2));
-        $activitiesData->addRow($rowWatch);
-
-        $rowSleep = new Row();
-        $rowSleep->addCell(new Cell("Sleep"))->addCell(new Cell(7));
-        $activitiesData->addRow($rowSleep);
-
-        $pieChart = new ColumnChart("activitiesPie", $activitiesData);
-        //$pieChart = new PieChart("activitiesPie", $activitiesData);
-        $pieChart->setTitle("My Daily Activities");
-
-        $manager = new ChartManager();
-        $manager->addChart($pieChart);
 
         function showIncomeRoom($roomId) {
             //2a - zmienna nr - numer pokoju - przychĂłd za pokoj
@@ -82,10 +30,11 @@ require_once("./googlecharttools/ClassLoader.class.php");
         function showIncomeLastMonth() {
             //2b - przychod w miesiacyu
 
-            $zapytanie = 'SELECT sum(cena) suma
+            $zapytanie = 'SELECT numer,cena*(EXTRACT(DAY FROM SYSDATE)-EXTRACT(DAY FROM od_kiedy)) suma
                 FROM Rezerwacje NATURAL JOIN Pokoje
                 WHERE EXTRACT(MONTH FROM od_kiedy)=EXTRACT(MONTH FROM SYSDATE) AND
-                      EXTRACT(MONTH FROM do_kiedy)=EXTRACT(MONTH FROM SYSDATE)';
+                      EXTRACT(MONTH FROM do_kiedy)=EXTRACT(MONTH FROM SYSDATE)
+                      and cena*(EXTRACT(DAY FROM SYSDATE)-EXTRACT(DAY FROM od_kiedy))>0';
 
             $polaczenie = oci_connect("hotel", "hotel", "localhost/XE");
             $wyrazenie = oci_parse($polaczenie, $zapytanie);
@@ -94,14 +43,33 @@ require_once("./googlecharttools/ClassLoader.class.php");
                 trigger_error('Zapytanie zakoÄšâczyÄšâo siĂâ˘ niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
             }
             $from = 1; //{5}
+            $activitiesData = new DataTable();
+            $activitiesData->addColumn(new Column(Column::TYPE_STRING, "t", "Task"));
+            $activitiesData->addColumn(new Column(Column::TYPE_NUMBER, "h", "Przychód"));
 
             while ($rekord = oci_fetch_array($wyrazenie, OCI_ASSOC)) {
-                echo "<tr><td>" . $from . "</td><td>" .
-                $rekord['IMIE'] . "</td><td>" . $rekord['NAZWISKO'] . "</td>";
+
+                $rowWork = new Row();
+                $rowWork->addCell(new Cell($rekord['NUMER']))->addCell(new Cell($rekord['SUMA']));
+                $activitiesData->addRow($rowWork);
+
+                echo "<tr><td>" . $from . "</td>
+                    <td>" . $rekord['NUMER'] . "</td>
+                    <td>" . $rekord['SUMA'] . "</td>";
                 $from++;
             }
+            $pieChart = new ColumnChart("activitiesPie", $activitiesData);
+            //$pieChart = new PieChart("activitiesPie", $activitiesData);
+            $pieChart->setTitle("Przychód z ostaniego miesiąca");
+
+            $manager = new ChartManager();
+            $manager->addChart($pieChart);
+
             //$rowsCount = oci_num_rows($wyrazenie);
             oci_close($polaczenie);
+            $tab["manager"] = $manager;
+            $tab["chart"] = $pieChart;
+            return $tab;
         }
 
         function showIncomeLastWeek() {
@@ -134,7 +102,7 @@ FROM Rezerwacje r, Pokoje p
 WHERE p.numer=r.numer
 group by p.numer
 union 
-SELECT p.numer,0suma
+SELECT p.numer,0 suma
 FROM Rezerwacje r, Pokoje p  
 WHERE 
 p.numer not in (SELECT p.numer
@@ -142,7 +110,7 @@ p.numer not in (SELECT p.numer
           WHERE p.numer=r.numer
           group by p.numer)
 group by p.numer
-order by 2 desc
+order by suma desc
 ";
 
             $wyrazenie = oci_parse($polaczenie, $zapytanie);
@@ -153,13 +121,34 @@ order by 2 desc
             $from = 1; //{5}
             $i = 0;
             //echo "tab count " . count($tab) . "<br>";
+            $activitiesData = new DataTable();
+            $activitiesData->addColumn(new Column(Column::TYPE_STRING, "t", "Task"));
+            $activitiesData->addColumn(new Column(Column::TYPE_NUMBER, "h", "Przychód"));
+
             while ($rekord = oci_fetch_array($wyrazenie, OCI_ASSOC)) {
+
+                $rowWork = new Row();
+                $rowWork->addCell(new Cell($rekord['NUMER']))->addCell(new Cell($rekord['SUMA']));
+                $activitiesData->addRow($rowWork);
+
                 echo "<tr><td>" . $from . "</td><td>" .
                 $rekord['NUMER'] . "</td><td>" . (($i < count($tab) ) ? ($rekord['SUMA'] * $tab[$i] ) : $rekord['SUMA'] ) . " zl</td>";
                 $from++;
                 $i++;
             }
+
+            $pieChart = new ColumnChart("activitiesPie2", $activitiesData);
+            //$pieChart = new PieChart("activitiesPie", $activitiesData);
+            $pieChart->setTitle("Przychód sumaryczny");
+
+            $manager = new ChartManager();
+            $manager->addChart($pieChart);
+
+            //$rowsCount = oci_num_rows($wyrazenie);
             oci_close($polaczenie);
+            $tab["manager"] = $manager;
+            $tab["chart"] = $pieChart;
+            return $tab;
         }
         ?>
 
@@ -172,6 +161,23 @@ order by 2 desc
             <?php include('menu.php'); ?>
             <div id = "TRESC">
                 <h1 class="underline extraBottomMargin">Zestawienia finansowe ( <?php echo(date("d-m-Y | G:i:s", time())); ?>)</h1>
+                <h2 class="underline extraBottomMargin">Przychody pokoi z ostatniego miesiaca</h2>
+                <table id="table-6">
+                    <thead>
+                    <th>No.</th>
+                    <th>Pokój</th>
+                    <th>Kwota</th>
+                    </thead>
+                    <tbody>
+                        <?php $chart = showIncomeLastMonth(); ?>
+                    </tbody>
+                </table>
+                <br>
+                <br>
+                <?php echo $chart["manager"]->getHtmlHeaderCode(); ?>
+
+                <?php echo $chart["chart"]->getHtmlContainer(); ?>
+
                 <h2 class="underline extraBottomMargin">Sumaryczne przychody pokoi</h2>
                 <table id="table-6">
                     <thead>
@@ -180,9 +186,14 @@ order by 2 desc
                     <th>Kwota</th>
                     </thead>
                     <tbody>
-                        <?php showAllRoomsIncome(); ?>
+                        <?php $chart2 = showAllRoomsIncome(); ?>
                     </tbody>
                 </table>
+                <br>
+                <br>
+                <?php echo $chart2["manager"]->getHtmlHeaderCode(); ?>
+                <?php echo $chart2["chart"]->getHtmlContainer(); ?>
+
             </div>
         </div>
         <div id="footer">Panel Administracyjny</div>

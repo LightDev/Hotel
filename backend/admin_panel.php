@@ -86,32 +86,15 @@ require_once("./googlecharttools/ClassLoader.class.php");
         //include('googleChartsRequirements.php');
         $activitiesData = new DataTable();
         $activitiesData->addColumn(new Column(Column::TYPE_STRING, "t", "Task"));
-        $activitiesData->addColumn(new Column(Column::TYPE_NUMBER, "h", "Hours per Day"));
+        $activitiesData->addColumn(new Column(Column::TYPE_NUMBER, "h", "Przychód"));
 
         $rowWork = new Row();
         $rowWork->addCell(new Cell("Work"))->addCell(new Cell(11));
-        ;
         $activitiesData->addRow($rowWork);
-
-        $rowEat = new Row();
-        $rowEat->addCell(new Cell("Eat"))->addCell(new Cell(2));
-        $activitiesData->addRow($rowEat);
-
-        $rowCommute = new Row();
-        $rowCommute->addCell(new Cell("Commute"))->addCell(new Cell(2));
-        $activitiesData->addRow($rowCommute);
-
-        $rowWatch = new Row();
-        $rowWatch->addCell(new Cell("Watch TV"))->addCell(new Cell(2));
-        $activitiesData->addRow($rowWatch);
-
-        $rowSleep = new Row();
-        $rowSleep->addCell(new Cell("Sleep"))->addCell(new Cell(7));
-        $activitiesData->addRow($rowSleep);
 
         $pieChart = new ColumnChart("activitiesPie", $activitiesData);
         //$pieChart = new PieChart("activitiesPie", $activitiesData);
-        $pieChart->setTitle("My Daily Activities");
+        $pieChart->setTitle("Przychód z ostaniego miesiąca");
 
         $manager = new ChartManager();
         $manager->addChart($pieChart);

@@ -14,12 +14,12 @@
 
             $zapytanie = "SELECT imie, nazwisko, r.numer, od_kiedy, do_kiedy, 'AKTYWNA' STATUS
                           FROM Pokoje p  JOIN Rezerwacje r ON (p.numer=r.numer) JOIN Goscie g ON (r.id_goscia=g.id)
-                          WHERE (od_kiedy>=TRUNC(SYSDATE-1)) and id_goscia='1'
+                          WHERE (od_kiedy>=TRUNC(SYSDATE-1)) and id_goscia='{$_SESSION['user']}'
                           and SYSDATE between od_kiedy-1 and do_kiedy+1
                           UNION
                          SELECT imie, nazwisko, r.numer, od_kiedy, do_kiedy, 'NIEAKTYWNA' STATUS
                           FROM Pokoje p  JOIN Rezerwacje r ON (p.numer=r.numer) JOIN Goscie g ON (r.id_goscia=g.id)
-                          WHERE (od_kiedy>=TRUNC(SYSDATE-1)) and id_goscia='1'
+                          WHERE (od_kiedy>=TRUNC(SYSDATE-1)) and id_goscia='{$_SESSION['user']}'
                           and SYSDATE not between od_kiedy-1 and do_kiedy+1
                           order by 4";
 

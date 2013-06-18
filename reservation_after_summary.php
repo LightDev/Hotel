@@ -27,6 +27,7 @@
                 $roomId = $_POST['roomId'];
                 $guestId = $_SESSION['user'];
                 $dateFrom = $_SESSION['dateFromHidden'];
+                echo $dateFrom;
                 $dateTo = $_SESSION['dateToHidden'];
                 $hotelGuest = new HotelGuest();
                 $hotelGuest->bookOnline($roomId, $guestId, $dateFrom, $dateTo);

@@ -18,28 +18,35 @@
                 $err = oci_error($wyrazenie);
                 trigger_error('Zapytanie zakoĹ?czyĹ?o siÄ? niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
             }
-            ?>
-            <table id="table-6" >
-                <thead>
-                    <th>No.</th>
-                    <th>Pokój</th>
-                    <th>Od</th>
-                    <th>Do</th>
-                </thead>
-                <tbody>
-                    <?php
-                    $from = 1; //{5}
+            $rowsCount = PHP_Helper::getCount($zapytanie);
+            if ($rowsCount == 0) {
+                echo 'Nie posiadasz historii rezerwacji.';
+            } else if ($rowsCount > 0) {
+                ?>
 
-                    while ($rekord = oci_fetch_array($wyrazenie, OCI_ASSOC)) {
-                        echo "<tr><td>" . $from . "</td><td>" . $rekord['NUMER'] . "</td><td>" . $rekord['OD'] . "</td><td>" . $rekord['DO'] . "</td></tr>";
-                        $from++;
-                    }
-                    //$rowsCount = oci_num_rows($wyrazenie);
-                    oci_close($polaczenie);
-                    ?>
-                </tbody>
-            </table>
-        <?php } ?>
+                <table id="table-6" >
+                    <thead>
+                        <th>No.</th>
+                        <th>Pokój</th>
+                        <th>Od</th>
+                        <th>Do</th>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $from = 1; //{5}
+
+                        while ($rekord = oci_fetch_array($wyrazenie, OCI_ASSOC)) {
+                            echo "<tr><td>" . $from . "</td><td>" . $rekord['NUMER'] . "</td><td>" . $rekord['OD'] . "</td><td>" . $rekord['DO'] . "</td></tr>";
+                            $from++;
+                        }
+                        //$rowsCount = oci_num_rows($wyrazenie);
+                        oci_close($polaczenie);
+                        ?>
+                    </tbody>
+                </table>
+            <?php }
+        }
+        ?>
 
     </head>
 
@@ -54,13 +61,13 @@
         ?>
 
         <div class="wrap">
-            <?php include('user_menu.php'); ?>
+<?php include('user_menu.php'); ?>
             <div id="reservation_result" >
                 <h1 class="underline">Historia rezerwacji</h1>
                 <br />
-                <?php showOldReservations(); ?><br />
+<?php showOldReservations(); ?><br />
             </div>
         </div>
-        <?php include('footer.php'); ?>
+<?php include('footer.php'); ?>
     </body>
 </html>
