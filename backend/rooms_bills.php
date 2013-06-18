@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8">-->
 
         <?php
         include('../createHead.php');
@@ -24,7 +24,7 @@
             $wyrazenie = oci_parse($polaczenie, $zapytanie);
             if (!oci_execute($wyrazenie)) {
                 $err = oci_error($wyrazenie);
-                trigger_error('Zapytanie zakoÅ?czyÅ?o siÄ? niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
+                trigger_error('Zapytanie zakoÄ¹?czyÄ¹?o siÃ„? niepowodzeniem: ' . $err ['message'], E_USER_ERROR);
             }
             include('../PHP_Helper.php');
             $rowsCount = PHP_Helper::getCount($zapytanie);
@@ -37,9 +37,9 @@
                 <table id="table-6" >
                     <thead>
                     <th>No.</th>
-                    <th>Imiê</th>
+                    <th>ImiÄ™</th>
                     <th>Nazwisko</th>
-                    <th>Pokój</th>
+                    <th>PokÃ³j</th>
                     <th>Od</th>
                     <th>Do</th>
                     <th>Akcja</th>
@@ -60,7 +60,7 @@
                                     <td>" . $rekord['NUMER'] . "</td>
                                         <td>" . $rekord['OD'] . "</td
                                             ><td>" . $rekord['DO'] . "</td>
-                            <td><a href=\"generate_bill.php?id=" . $rekord['NUMER_REZERWACJI'] . "\" class = \"button gradient_silver\">Wy¶wietl</a></td></tr>";
+                            <td><a href=\"generate_bill.php?id=" . $rekord['NUMER_REZERWACJI'] . "\" class = \"button gradient_silver\">WyÅ›wietl</a></td></tr>";
                         $from++;
                     }
                     //$rowsCount = oci_num_rows($wyrazenie);
@@ -80,7 +80,7 @@
     <div class="wrap">
         <?php include('menu.php'); ?>
         <div id = "TRESC">
-            <h1 class="underline extraBottomMargin">Lista rachunków do wygenerowania (<?php echo(date("d-m-Y | G:i:s", time())); ?>)</h1>
+            <h1 class="underline extraBottomMargin">Lista rachunkÃ³w do wygenerowania (<?php echo(date("d-m-Y | G:i:s", time())); ?>)</h1>
             <?php
 //            $od = '2013-06-14';
 //            $do = '2013-06-17';
